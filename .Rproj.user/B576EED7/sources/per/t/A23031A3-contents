@@ -1,0 +1,269 @@
+library(shiny)
+
+df <- read.csv("servant.csv")
+df1 <- subset(df,df$登場 == 1)
+dfex <- subset(df,df$登場 == 1.5)
+df2 <- subset(df,df$登場 == 2)
+
+df_number <- as.numeric(df1$NO)
+df_rare <- as.numeric(df1$レア度)
+df_class <- as.character(df1$クラス)
+df_name <- as.character(df1$名前)
+df_answer_column <- as.character(df1$空白)
+
+dfex_number <- as.numeric(dfex$NO)
+dfex_rare <- as.numeric(dfex$レア度)
+dfex_class <- as.character(dfex$クラス)
+dfex_name <- as.character(dfex$名前)
+dfex_answer_column <- as.character(dfex$空白)
+
+df2_number <- as.numeric(df2$NO)
+df2_rare <- as.numeric(df2$レア度)
+df2_class <- as.character(df2$クラス)
+df2_name <- as.character(df2$名前)
+df2_answer_column <- as.character(df2$空白)
+
+ui <- fluidPage(
+   
+   titlePanel("サーヴァント全種言えるかな?"),
+   tabsetPanel(type = "tabs",
+               tabPanel("1部",
+                        sidebarLayout(
+                          sidebarPanel(
+                            actionButton("start1","ゲーム開始"),
+                            textOutput("timer1"),
+                            textOutput("timer11"),
+                            uiOutput("input1"),
+                            actionButton("button1","check"),
+                            submitButton("Submit"),
+                            textOutput("finish")
+                            ),
+                          mainPanel(
+                            DT::dataTableOutput("table")
+                            )
+                          )
+                        ),
+               tabPanel("1.5部",
+                        sidebarLayout(
+                          sidebarPanel(
+                            actionButton("start_ex","ゲーム開始"),
+                            textOutput("timer_ex"),
+                            textOutput("timer_ex2"),
+                            uiOutput("input_ex"),
+                            actionButton("button_ex","check"),
+                            submitButton("Submit"),
+                            textOutput("finish_ex"),
+                            h4("文字コードの都合上193番 => ?? ")
+                          ),
+                          mainPanel(
+                            DT::dataTableOutput("table_ex")
+                          )
+                        )
+                        ),
+               tabPanel("2部",
+                        sidebarLayout(
+                          sidebarPanel(
+                            actionButton("start2","ゲーム開始"),
+                            textOutput("timer2"),
+                            textOutput("timer22"),
+                            uiOutput("input2"),
+                            actionButton("button2","check"),
+                            submitButton("Submit"),
+                            textOutput("finish2")
+                          ),
+                          mainPanel(
+                            DT::dataTableOutput("table2")
+                          )
+                        )
+                        )
+               )
+   )
+
+server <- function(input, output) {
+  
+  confirmation <- function(){
+    count <<- 0
+    for(i in 1:length(df_number)){
+      if(as.character(df_answer_column[i]) != "x"){
+        count <<- count + 1
+      }
+    }
+    if(count == length(df_number)){
+      output$finish <- renderText({
+        "全問正解です"
+      })
+      output$timer11 <- renderText({
+        paste("終了時間は",Sys.time(),"です")
+      })
+      startflag1 <<- 0
+    }
+    else{
+      output$finish <- renderText({
+        paste("残り",(length(df_number) - count),"問です")
+      })
+    }
+  }
+  
+  confirmation_ex <- function(){
+    count_ex <<- 0
+    for(i in 1:length(dfex_number)){
+      if(as.character(dfex_answer_column[i]) != "x"){
+        count_ex <<- count_ex + 1
+      }
+    }
+    if(count_ex == length(dfex_number)){
+      output$finish_ex <- renderText({
+        "全問正解です"
+      })
+      output$timer_ex2 <- renderText({
+        paste("終了時間は",Sys.time(),"です")
+      })
+      startflag_ex <<- 0
+    }
+    else{
+      output$finish_ex <- renderText({
+        paste("残り",(length(dfex_number) - count_ex),"問です")
+      })
+    }
+  }
+  
+  confirmation2 <- function(){
+    count2 <<- 0
+    for(i in 1:length(df2_number)){
+      if(as.character(df2_answer_column[i]) != "x"){
+        count2 <<- count2 + 1
+      }
+    }
+    if(count2 == length(df2_number)){
+      output$finish2 <- renderText({
+        "全問正解です"
+      })
+      output$timer22 <- renderText({
+        paste("終了時間は",Sys.time(),"です")
+      })
+      startflag2 <<- 0
+    }
+    else{
+      output$finish2 <- renderText({
+        paste("残り",(length(df2_number) - count2),"問です")
+      })
+    }
+  }
+  
+  moji <<- ""
+  
+  output$input1 <- renderUI({
+    textInput("input_text", label = h3("Name input"), value = moji)
+  })
+  output$input_ex <- renderUI({
+    textInput("input_text_ex", label = h3("Name input"), value = moji)
+  })
+  output$input2 <- renderUI({
+    textInput("input_text2", label = h3("Name input"), value = moji)
+  })
+  
+  count <<- 0
+  count_ex <<- 0
+  count2 <<- 0
+  output$table <- DT::renderDataTable(data.frame(No = df_number,Rarity = df_rare,Class = df_class,AnswerColumn = df_answer_column),rownames = FALSE)
+  output$table_ex <- DT::renderDataTable(data.frame(No = dfex_number,Rarity = dfex_rare,Class = dfex_class,AnswerColumn = dfex_answer_column),rownames = FALSE)
+  output$table2 <- DT::renderDataTable(data.frame(No = df2_number,Rarity = df2_rare,Class = df2_class,AnswerColumn = df2_answer_column),rownames = FALSE)
+  confirmation()
+  confirmation_ex()
+  confirmation2()
+  
+  startflag1 <- 0
+  startflag_ex <- 0
+  startflag2 <- 0
+  
+  #1部
+  
+  observeEvent(input$start1,{
+    if(startflag1 == 0){
+      output$timer1 <- renderText({
+        paste("開始時間は",Sys.time(),"です")
+      })
+      starttime1 <<- Sys.time()
+      startflag1 <<- 1
+    }
+  })
+  observeEvent(input$button1,{
+    if(input$input_text != ""){
+      for(i in 1:length(df_number)){
+        if(df_name[i] == input$input_text && df_answer_column[i] == "x"){
+          moji <<- ""
+          output$input1 <- renderUI({
+            textInput("input_text", label = h3("Name input"), value = moji)
+          })
+          df_answer_column[i] <<- df_name[i]
+          output$table <- DT::renderDataTable(data.frame(No = df_number,Rarity = df_rare,Class = df_class,AnswerColumn = df_answer_column),rownames = FALSE)
+          confirmation()
+        }
+      }
+    }
+  })
+  
+  #1.5部
+  observeEvent(input$start_ex,{
+    if(startflag_ex == 0){
+      output$timer_ex <- renderText({
+        paste("開始時間は",Sys.time(),"です")
+      })
+      starttime_ex <<- Sys.time()
+      startflag_ex <<- 1
+    }
+  })
+  observeEvent(input$button_ex,{
+    if(input$input_text_ex != ""){
+      for(i in 1:length(dfex_number)){
+        if(dfex_name[i] == input$input_text_ex  && dfex_answer_column[i] == "x"){
+          moji <<- ""
+          output$input_ex <- renderUI({
+            textInput("input_text_ex", label = h3("Name input"), value = moji)
+          })
+          dfex_answer_column[i] <<- dfex_name[i]
+          output$table_ex <- DT::renderDataTable(data.frame(No = dfex_number,Rarity = dfex_rare,Class = dfex_class,AnswerColumn = dfex_answer_column),rownames = FALSE)
+          confirmation_ex()
+        }
+      }
+    }
+  })
+  
+  #2部
+  observeEvent(input$start2,{
+    if(startflag2 == 0){
+      output$timer2 <- renderText({
+        paste("開始時間は",Sys.time(),"です")
+      })
+      starttime2 <<- Sys.time()
+      startflag2 <<- 1
+    }
+  })
+  observeEvent(input$button2,{
+    if(input$input_text2 != ""){
+      for(i in 1:length(df2_number)){
+        if(df2_name[i] == input$input_text2  && df2_answer_column[i] == "x"){
+          moji <<- ""
+          output$input2 <- renderUI({
+            textInput("input_text2", label = h3("Name input"), value = moji)
+          })
+          df2_answer_column[i] <<- df2_name[i]
+          output$table2 <- DT::renderDataTable(data.frame(No = df2_number,Rarity = df2_rare,Class = df2_class,AnswerColumn = df2_answer_column),rownames = FALSE)
+          confirmation2()
+        }
+      }
+    }
+  })
+  
+}
+
+shinyApp(ui = ui, server = server)
+
+
+
+
+
+
+
+
+
