@@ -36,12 +36,11 @@ maxmin <- data.frame(
   para_e = c(100, 0)
 )
 #カード指定の変数
-card_num <<- 1
+card_num <- 1
 
 ui <- fluidPage(
-  
+  #Shinyjsを使用できるようにする
   useShinyjs(),
-  
   #黒画面
   theme = shinytheme("cyborg"),
   
@@ -97,19 +96,15 @@ ui <- fluidPage(
                            uiOutput("sentence"),
                            uiOutput("sentence2"),
                            uiOutput("tweet"),
-                           fluidRow(
-                             column(3,offset = 9,actionButton("Back_to_start_button1","Back"))
-                           )
+                           fluidRow(column(3,offset = 9,actionButton("Back_to_start_button1","Back")))
                          )
                        )
               ),
               tabPanel(title = "Mini Game",value = "panel_5",
                        fluidRow(
-                         column(3,actionButton("Player1_turn","1")),
-                         column(2,uiOutput("player1_point")),
-                         column(2,uiOutput("MiniGame_start")),
-                         column(2,uiOutput("player2_point")),
-                         column(3,actionButton("Player2_turn","2"))
+                         column(1,uiOutput("player1_point")),
+                         column(10, uiOutput("player_turn")),
+                         column(1,uiOutput("player2_point"))
                        ),
                        fluidRow(
                          column(2,uiOutput("mini1")),
@@ -155,9 +150,7 @@ ui <- fluidPage(
                        h4("ミノエル れしぃ comame fuchi", align = "center"),
                        h2("Tea lady(Boss)", align = "center"),
                        h4("葵", align = "center"),
-                       fluidRow(
-                         column(11),column(1,actionButton("Back_to_start_button2","Back"))
-                       )
+                       fluidRow(column(1,offset = 11,actionButton("Back_to_start_button2","Back")))
               )
   )
 )
@@ -186,24 +179,14 @@ server <- function(input, output,session) {
   ##################  ゲーム画面   ########################
   #全てのカードを裏返す関数
   reverseAll <- function(){
-    output$card1 <- renderUI({makeUi(1)})
-    output$card2 <- renderUI({makeUi(2)})
-    output$card3 <- renderUI({makeUi(3)})
-    output$card4 <- renderUI({makeUi(4)})
-    output$card5 <- renderUI({makeUi(5)})
-    output$card6 <- renderUI({makeUi(6)})
-    output$card7 <- renderUI({makeUi(7)})
-    output$card8 <- renderUI({makeUi(8)})
-    output$card9 <- renderUI({makeUi(9)})
-    output$card10 <- renderUI({makeUi(10)})
-    output$card11 <- renderUI({makeUi(11)})
-    output$card12 <- renderUI({makeUi(12)})
-    output$card13 <- renderUI({makeUi(13)})
+    lapply(1:13 , function(x) output[[paste0("card",x)]] <- renderUI({makeUi(x)}))
     #重複対策
     tallot_data_sets <<- c(0:21)
     #めくる枚数とめくった番号の合計
     turn_num <<- 0
     sum_num <<- 0
+    #再反転対策
+    reverse_protect <<- c(1:13)
   }
   
   #カードを裏面で生成する関数
@@ -214,8 +197,7 @@ server <- function(input, output,session) {
       class = "btn action-button",
       tags$img(src = paste("cc_","00",".jpg",sep = ""),height = "200px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
-      #実際はこれ
-      # tags$img(src = paste("tallot_",00,".png",sep = ""),height = "200px",width = "100px")
+      #実際はこれ tags$img(src = paste("tallot_",00,".png",sep = ""),height = "200px",width = "100px")
     )
   }
   
@@ -240,81 +222,26 @@ server <- function(input, output,session) {
   turnCard <- function(x){
     turn_num <<- turn_num + 1
     sum_num <<- sum_num + (card_num %% 100)
-    text <- paste("button",x,sep="")
+    reverse_protect[x] <<- 0
+    text <- paste0("button",x)
     tags$button(
       id = text,
       class = "btn action-button",
-      tags$img(src = paste("cc_", card_num ,".jpg",sep = ""),height = "200px",width = "100px"),
+      tags$img(src = paste0("cc_", card_num ,".jpg"),height = "200px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
-      # tags$img(src = paste("tallot_", card_num ,".png",sep = ""),height = "200px",width = "100px")
+      # tags$img(src = paste0("tallot_", card_num ,".png"),height = "200px",width = "100px")
     )
   }
   
   #各カードのボタンが押された際に乱数生成=>画像変換=>結果描写
-  observeEvent(input$button1,{
-    makeRan()
-    output$card1 <- renderUI({turnCard(1)})
-    makeChart()
-  })
-  observeEvent(input$button2,{
-    makeRan()
-    output$card2 <- renderUI({turnCard(2)})
-    makeChart()
-  })
-  observeEvent(input$button3,{
-    makeRan()
-    output$card3 <- renderUI({turnCard(3)})
-    makeChart()
-  })
-  observeEvent(input$button4,{
-    makeRan()
-    output$card4 <- renderUI({turnCard(4)})
-    makeChart()
-  })
-  observeEvent(input$button5,{
-    makeRan()
-    output$card5 <- renderUI({turnCard(5)})
-    makeChart()
-  })
-  observeEvent(input$button6,{
-    makeRan()
-    output$card6 <- renderUI({turnCard(6)})
-    makeChart()
-  })
-  observeEvent(input$button7,{
-    makeRan()
-    output$card7 <- renderUI({turnCard(7)})
-    makeChart()
-  })
-  observeEvent(input$button8,{
-    makeRan()
-    output$card8 <- renderUI({turnCard(8)})
-    makeChart()
-  })
-  observeEvent(input$button9,{
-    makeRan()
-    output$card9 <- renderUI({turnCard(9)})
-    makeChart()
-  })
-  observeEvent(input$button10,{
-    makeRan()
-    output$card10 <- renderUI({turnCard(10)})
-    makeChart()
-  })
-  observeEvent(input$button11,{
-    makeRan()
-    output$card11 <- renderUI({turnCard(11)})
-    makeChart()
-  })
-  observeEvent(input$button12,{
-    makeRan()
-    output$card12 <- renderUI({turnCard(12)})
-    makeChart()
-  })
-  observeEvent(input$button13,{
-    makeRan()
-    output$card13 <- renderUI({turnCard(13)})
-    makeChart()
+  lapply(1:13, function(x){
+    observeEvent(input[[paste0("button",x)]],{
+      if(reverse_protect[x] == x){
+        makeRan()
+        output[[paste0("card",x)]] <- renderUI({turnCard(x)})
+        makeChart()
+      }
+    })
   })
   
   #前処理
@@ -395,7 +322,7 @@ server <- function(input, output,session) {
   }
   #Backボタンが押された際にカードを裏返してStart画面へ
   observeEvent(input$Back_to_start_button1, {
-    updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 1,sep = "") )
+    updateTabsetPanel( session, "tallot_tab",selected = paste0("panel_", 1) )
     reverseAll()
   })
   
@@ -403,28 +330,28 @@ server <- function(input, output,session) {
   
   #カードを裏面で生成する関数
   makeUiMini <- function(x){
-    text <- paste("button_mini",x,sep = "")
+    text <- paste0("button_mini",x)
     tags$button(
       id = text,
       class = "btn action-button",
-      tags$img(src = paste("cc_","00",".jpg",sep = ""),height = "200px",width = "100px"),
+      tags$img(src = paste0("cc_","00",".jpg"),height = "200px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
-      #実際はこれ
-      # tags$img(src = paste("tallot_",00,".jpg",sep = ""),height = "200px",width = "100px")
+      #tags$img(src = paste0("tallot_",00,".jpg"),height = "200px",width = "100px")
     )
   }
   
   #値を初期値に戻す関数
   resetPoint <- function(){
     #プレイヤーのフラグと各得点
-    play_turn_flag <<- 0
+    play_turn_flag <<- 1
     p_points <<- c(1:2) - c(1:2)
     turned_count <<- 0
     open_tmp <<- 0
+    reverse_protect_mini <<- c(1:24)
     #UI作成
-    output$player1_point <- renderUI({h1(p_points[1])})
-    output$player2_point <- renderUI({h1(p_points[2])})
-    output$MiniGame_start <- renderUI({actionButton("MiniGame_start","Start")})
+    output$player1_point <- renderUI({h1(p_points[1],align="center")})
+    output$player2_point <- renderUI({h1(p_points[2],align="center")})
+    output$player_turn <- renderUI({h1(paste0("プレイヤー",play_turn_flag,"のターン"),align = "center")})
     #対象の役生成
     moto_data <<- unique( floor( runif(10000,0,22) ) )#ランダムに0~21生成
     moto_data <<- append(moto_data[1:12],moto_data[1:12])#12個ずつ一組作る
@@ -432,50 +359,24 @@ server <- function(input, output,session) {
   }
   
   #カードを裏面に戻す関数
-  returnCard <- function(x){
-    switch(x,               
-           "1"  = output$mini1 <- renderUI({makeUiMini(1)}),
-           "2"  = output$mini2 <- renderUI({makeUiMini(2)}),
-           "3"  = output$mini3 <- renderUI({makeUiMini(3)}),
-           "4"  = output$mini4 <- renderUI({makeUiMini(4)}),
-           "5"  = output$mini5 <- renderUI({makeUiMini(5)}),
-           "6"  = output$mini6 <- renderUI({makeUiMini(6)}),
-           "7"  = output$mini7 <- renderUI({makeUiMini(7)}),
-           "8"  = output$mini8 <- renderUI({makeUiMini(8)}),
-           "9"  = output$mini9 <- renderUI({makeUiMini(9)}),
-           "10" = output$mini10 <- renderUI({makeUiMini(10)}),
-           "11" = output$mini11 <- renderUI({makeUiMini(11)}),
-           "12" = output$mini12 <- renderUI({makeUiMini(12)}),
-           "13" = output$mini13 <- renderUI({makeUiMini(13)}),
-           "14" = output$mini14 <- renderUI({makeUiMini(14)}),
-           "15" = output$mini15 <- renderUI({makeUiMini(15)}),
-           "16" = output$mini16 <- renderUI({makeUiMini(16)}),
-           "17" = output$mini17 <- renderUI({makeUiMini(17)}),
-           "18" = output$mini18 <- renderUI({makeUiMini(18)}),
-           "19" = output$mini19 <- renderUI({makeUiMini(19)}),
-           "20" = output$mini20 <- renderUI({makeUiMini(20)}),
-           "21" = output$mini21 <- renderUI({makeUiMini(21)}),
-           "22" = output$mini22 <- renderUI({makeUiMini(22)}),
-           "23" = output$mini23 <- renderUI({makeUiMini(23)}),
-           "24" = output$mini24 <- renderUI({makeUiMini(24)})
-    )  
-  }
+  returnCard <- function(x){output[[paste0("mini",x)]] <- renderUI({makeUiMini(x)})}
+  
   #全てのカードを裏返す関数
   reverseAllMini <- function(x) {
-    for(i in 1:24)returnCard(i)
+    lapply(1:24, function(x) returnCard(x))
     resetPoint()
   }
   
   #カードを裏返す関数
   turnCardMini <- function(x){
     print(moto_data)
-    text <- paste("button_mini",x,sep="")
+    text <- paste0("button_mini",x)
     tags$button(
       id = text,
       class = "btn action-button",
-      tags$img(src = paste("cc_", moto_data[x] ,".jpg",sep = ""),height = "200px",width = "100px"),
+      tags$img(src = paste0("cc_", moto_data[x] ,".jpg"),height = "200px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
-      # tags$img(src = paste("tallot_", num ,".png",sep = ""),height = "200px",width = "100px")
+      # tags$img(src = paste0("tallot_", num ,".png"),height = "200px",width = "100px")
     )
   }
   
@@ -487,118 +388,44 @@ server <- function(input, output,session) {
     } else{
       if(moto_data[open_tmp] == moto_data[x]){
         p_points[play_turn_flag] <<- p_points[play_turn_flag] + 1
-        output$player1_point <- renderUI({h1(p_points[1])})
-        output$player2_point <- renderUI({h1(p_points[2])})
+        output$player1_point <- renderUI({h1(p_points[1],align="center")})
+        output$player2_point <- renderUI({h1(p_points[2],align="center")})
+        #反転済みカードを押せなくする
+        reverse_protect_mini[open_tmp] <<- 0
+        reverse_protect_mini[x] <<- 0
       } else{
         #カードを裏返す
-        delay(1000, returnCard(open_tmp) )
-        delay(1000, returnCard(x))
+        delay(500, returnCard(open_tmp) )
+        delay(500, returnCard(x))
+        changeTurn()
       }
+      if(p_points[1] + p_points[2] == 12){
+        checkWinner()
+      } 
       turned_count <<- 0
     }
   }
   
-  #ターンチェンジ
-  observeEvent(input$Player1_turn,{ if(play_turn_flag == 2) play_turn_flag <<- 1 })
-  observeEvent(input$Player2_turn,{ if(play_turn_flag == 1) play_turn_flag <<- 2 })
-  observeEvent(input$MiniGame_start,{ play_turn_flag <<- 1 })
+  #ターンチェンジを行う関数
+  changeTurn <- function(){
+    ifelse(play_turn_flag == 1,play_turn_flag<<- 2,play_turn_flag <<- 1)
+    output$player_turn <- renderUI({h1( paste0("プレイヤー",play_turn_flag,"のターン"),align="center")})
+  }
+  #勝利者を決める関数
+  checkWinner <- function(){
+    if(p_points[1] > p_points[2]) output$player_turn <- renderUI({h1( paste0("プレイヤー1の勝利！"),align="center")})
+    else if(p_points[1] < p_points[2]) output$player_turn <- renderUI({h1( paste0("プレイヤー2の勝利！"),align="center")})
+    else output$player_turn <- renderUI({h1( paste0("引き分け"),align="center")})
+  }
   
   #各カードの反転
-  observeEvent(input$button_mini1,{
-    output$mini1 <- renderUI({turnCardMini(1)})
-    checkMini(1)
-  })
-  observeEvent(input$button_mini2,{
-    output$mini2 <- renderUI({turnCardMini(2)})
-    checkMini(2)
-  })
-  observeEvent(input$button_mini3,{
-    output$mini3 <- renderUI({turnCardMini(3)})
-    checkMini(3)
-  })
-  observeEvent(input$button_mini4,{
-    output$mini4 <- renderUI({turnCardMini(4)})
-    checkMini(4)
-  })
-  observeEvent(input$button_mini5,{
-    output$mini5 <- renderUI({turnCardMini(5)})
-    checkMini(5)
-  })
-  observeEvent(input$button_mini6,{
-    output$mini6 <- renderUI({turnCardMini(6)})
-    checkMini(6)
-  })
-  observeEvent(input$button_mini7,{
-    output$mini7 <- renderUI({turnCardMini(7)})
-    checkMini(7)
-  })
-  observeEvent(input$button_mini8,{
-    output$mini8 <- renderUI({turnCardMini(8)})
-    checkMini(8)
-  })
-  observeEvent(input$button_mini9,{
-    output$mini9 <- renderUI({turnCardMini(9)})
-    checkMini(9)
-  })
-  observeEvent(input$button_mini10,{
-    output$mini10 <- renderUI({turnCardMini(10)})
-    checkMini(10)
-  })
-  observeEvent(input$button_mini11,{
-    output$mini11 <- renderUI({turnCardMini(11)})
-    checkMini(11)
-  })
-  observeEvent(input$button_mini12,{
-    output$mini12 <- renderUI({turnCardMini(12)})
-    checkMini(12)
-  })
-  observeEvent(input$button_mini13,{
-    output$mini13 <- renderUI({turnCardMini(13)})
-    checkMini(13)
-  })
-  observeEvent(input$button_mini14,{
-    output$mini14 <- renderUI({turnCardMini(14)})
-    checkMini(14)
-  })
-  observeEvent(input$button_mini15,{
-    output$mini15 <- renderUI({turnCardMini(15)})
-    checkMini(15)
-  })
-  observeEvent(input$button_mini16,{
-    output$mini16 <- renderUI({turnCardMini(16)})
-    checkMini(16)
-  })
-  observeEvent(input$button_mini17,{
-    output$mini17 <- renderUI({turnCardMini(17)})
-    checkMini(17)
-  })
-  observeEvent(input$button_mini18,{
-    output$mini18 <- renderUI({turnCardMini(18)})
-    checkMini(18)
-  })
-  observeEvent(input$button_mini19,{
-    output$mini19 <- renderUI({turnCardMini(19)})
-    checkMini(19)
-  })
-  observeEvent(input$button_mini20,{
-    output$mini20 <- renderUI({turnCardMini(20)})
-    checkMini(20)
-  })
-  observeEvent(input$button_mini21,{
-    output$mini21 <- renderUI({turnCardMini(21)})
-    checkMini(21)
-  })
-  observeEvent(input$button_mini22,{
-    output$mini22 <- renderUI({turnCardMini(22)})
-    checkMini(22)
-  })
-  observeEvent(input$button_mini23,{
-    output$mini23 <- renderUI({turnCardMini(23)})
-    checkMini(23)
-  })
-  observeEvent(input$button_mini24,{
-    output$mini24 <- renderUI({turnCardMini(24)})
-    checkMini(24)
+  lapply(1:24, function(x){
+    observeEvent(input[[paste0("button_mini",x)]],{
+      if(reverse_protect_mini[x] == x){
+        output[[paste0("mini",x)]] <- renderUI({turnCardMini(x)})
+        checkMini(x)
+      }
+    })
   })
   
   #前処理
@@ -607,7 +434,7 @@ server <- function(input, output,session) {
   ##################  スタッフ画面   ########################
   #Backボタンが押された際にStart画面へ
   observeEvent(input$Back_to_start_button2, {
-    updateTabsetPanel(session, "tallot_tab",selected = paste("panel_", 1,sep = ""))
+    updateTabsetPanel(session, "tallot_tab",selected = paste0("panel_",1))
   })
 }
 shinyApp(ui = ui, server = server)
