@@ -1,0 +1,4 @@
+body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, rgba(77, 103, 132, 1) 0%, rgba(167, 135, 181, 1) 100%);
+}

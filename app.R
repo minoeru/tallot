@@ -2,6 +2,7 @@ library(shiny)
 library(fmsb)
 library(shinythemes)
 library(shinyjs)
+library(rsconnect)
 
 #csv読み込み
 df <- read.csv("tallot.csv")
@@ -39,6 +40,7 @@ maxmin <- data.frame(
 card_num <- 1
 
 ui <- fluidPage(
+  tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")),
   #Shinyjsを使用できるようにする
   useShinyjs(),
   #黒画面
