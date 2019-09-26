@@ -5,7 +5,7 @@ library(shinyjs)
 library(rsconnect)
 
 #csv読み込み
-df <- read.csv("tallot.csv")
+df <- read.csv("tallot_2.csv")
 #csv各値を変数に
 df_id <- df$id
 df_a <- df$para_a
@@ -15,6 +15,7 @@ df_d <- df$para_d
 df_e <- df$para_e
 df_sentence <- as.character(df$sentence)
 df_sentence2 <- as.character(df$sentence2)
+df_illustrator <- as.character(df$illustrator)
 
 #csv読み込み
 df_ex <- read.csv("tallot_ex.csv")
@@ -262,7 +263,7 @@ server <- function(input, output,session) {
         para_e = df_e[df$id == card_num]
       )
       dat <- rbind(maxmin, dat) #データの結合
-      VLabel <- c("a","b","c","d","e") #ラベルの名前！！！（決まり次第ここを変える）
+      VLabel <- c("General","Love","Money","Personal","work") #ラベルの名前
       #レーダーチャート作成
       output$radarPlot <- renderPlot({
         radarchart(dat, 
@@ -282,6 +283,7 @@ server <- function(input, output,session) {
                    # title = "Luck"
                    title = df_sentence[df$id == card_num]
         )
+        style="color: #000000; background-color: #000000; border-color: #000000"
       })
       output$sentence <- renderUI({ h1(df_sentence[df$id == card_num]) })
       output$sentence2 <- renderUI({ h5(df_sentence2[df$id == card_num]) })
@@ -297,7 +299,7 @@ server <- function(input, output,session) {
         para_e = df_e_ex[df_ex$id == sum_num %% 100]
       )
       dat <- rbind(maxmin, dat) #データの結合
-      VLabel <- c("a","b","c","d","e") #ラベルの名前！！！（決まり次第ここを変える）
+      VLabel <- c("General","Love","Money","Personal","work") #ラベルの名前
       #レーダーチャート作成
       output$radarPlot <- renderPlot({
         radarchart(dat, 
