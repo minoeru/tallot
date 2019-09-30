@@ -43,7 +43,7 @@ card_num <- 1
 
 ui <- fluidPage(
   tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")),
-  #Shinyjsを使用できるようにする
+  # Shinyjsを使用できるようにする
   useShinyjs(),
   #黒画面
   theme = shinytheme("cyborg"),
@@ -98,9 +98,9 @@ ui <- fluidPage(
                            plotOutput("radarPlot")
                          ),
                          mainPanel(
+                           uiOutput("cardname"),
                            uiOutput("sentence"),
-                           uiOutput("sentence2"),
-                           uiOutput("sentence3"),
+                           uiOutput("illust"),
                            uiOutput("tweet_button_ui", align = "center"),
                            uiOutput("home_button_ui",align = "center")
                          )
@@ -307,7 +307,6 @@ server <- function(input, output,session) {
     )
   })
   
-  
   #スタート画面に飛ばす
   updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 1,sep = "") )
   
@@ -353,7 +352,7 @@ server <- function(input, output,session) {
       class = "btn action-button",
       tags$img(src = paste("cc_","00",".jpg",sep = ""),height = "200px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
-      #実際はこれ tags$img(src = paste("tallot_",00,".png",sep = ""),height = "200px",width = "100px")
+      #実際はこれ tags$img(src = paste("mt_",00,".png",sep = ""),height = "200px",width = "100px")
     )
   }
   
@@ -423,31 +422,30 @@ server <- function(input, output,session) {
                    axistype = 0,#ラベル表示無し
                    seg = 5,#分割数
                    plty = 16,#線の種類(丸ぽち無し)
-                   pcol=6,#線の色
-                   plwd=1,　#ラインの太さ 
+                   pcol="white",#線の色
+                   plwd=2,　#ラインの太さ 
                    vlcex = 1,# ラベルの大きさ
                    pty=32,#データ点をプロットしない
                    centerzero = TRUE,#ゼロ真ん中
                    vlabels = VLabel,#ラベルの名前
                    pdensity=0,　#塗りつぶす（斜線の）程度
                    pangle=180,　#塗りつぶす斜線の傾き
-                   pfcol=7,　#塗りつぶす色(黄色)
-                   cglcol="black",#軸の色
+                   pfcol=7,　#塗りつぶす色
+                   cglcol="white",#軸の色
                    # title = "Luck"
                    title = df_sentence[df$id == card_num]
         )
-        style="color: #000000; background-color: #000000; border-color: #000000"
-      })
-      output$sentence <- renderUI({ h1(df_sentence2[df$id == card_num]) })
-      output$sentence2 <- renderUI({ h5(df_sentence3[df$id == card_num]) })
-      output$sentence3 <- renderUI({ h5(df_illustrator[df$id == card_num]) })
+      },bg="#a285b3")
+      output$cardname <- renderUI({ h1(df_sentence2[df$id == card_num]) })
+      output$sentence <- renderUI({ h5(df_sentence3[df$id == card_num]) })
+      output$illust <- renderUI({ h3(df_illustrator[df$id == card_num]) })
       output$tweet_button_ui <- renderUI({
         tags$button(
           id = "Tweet_button",
           class = "btn action-button",
           onclick = "window.open('https://twitter.com/compose/tweet', '_blank')",
           tags$img(src = "tweet.png",height = "50px",width = "300px"),
-          style="color: #000000; background-color: #000000; border-color: #000000"
+          style="background-color: #a285b3; border-color: #a285b3"
         )
       })
     }
