@@ -18,7 +18,7 @@ df_sentence2 <- as.character(df$sentence2)
 df_illustrator <- as.character(df$illustrator)
 
 #csv読み込み
-df_ex <- read.csv("tallot_ex.csv")
+df_ex <- read.csv("tallot_2.csv")
 #csv各値を変数に
 df_id_ex <- df_ex$id
 df_a_ex <- df_ex$para_a
@@ -50,9 +50,12 @@ ui <- fluidPage(
   titlePanel("タロットゲーム"),
   tabsetPanel(type = "tabs",id="tallot_tab",selected = "Start",
               tabPanel(title = "Start",value = "panel_1",
-                       actionButton("start_button","Start"),
-                       actionButton("staff_button","StaffList"),
-                       actionButton("minigame_button","MiniGame")
+                       # actionButton("start_button","Start"),
+                       uiOutput("start_button_ui", align = "center"),
+                       uiOutput("gallary_button_ui", align = "center"),
+                       uiOutput("staff_button_ui", align = "center")
+                       # actionButton("staff_button","StaffList"),
+                       # actionButton("minigame_button","MiniGame")
               ),
               tabPanel(title = "Game",value = "panel_2",
                        fluidRow(
@@ -142,6 +145,68 @@ ui <- fluidPage(
                          column(2,uiOutput("mini24"))
                        )
               ),
+              tabPanel(title = "Gallary",value = "panel_6",
+                       fluidRow(
+                         column(6,uiOutput("gallary1")),
+                         column(6,uiOutput("gallary2"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary3")),
+                         column(6,uiOutput("gallary4"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary5")),
+                         column(6,uiOutput("gallary6"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary7")),
+                         column(6,uiOutput("gallary8"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary9")),
+                         column(6,uiOutput("gallary10"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary11")),
+                         column(6,uiOutput("gallary12"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary13")),
+                         column(6,uiOutput("gallary14"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary15")),
+                         column(6,uiOutput("gallary16"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary17")),
+                         column(6,uiOutput("gallary18"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary19")),
+                         column(6,uiOutput("gallary20"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary21")),
+                         column(6,uiOutput("gallary22"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary23")),
+                         column(6,uiOutput("gallary24"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary25")),
+                         column(6,uiOutput("gallary26"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary27")),
+                         column(6,uiOutput("gallary28"))
+                       ),
+                       fluidRow(
+                         column(6,uiOutput("gallary29")),
+                         column(6,uiOutput("gallary30"))
+                       )
+              ),
               tabPanel(title = "Staff List",value="panel_4",
                        h2("Illustrator", align = "center"),
                        h4("ロジ まつり",align="center"),
@@ -160,6 +225,37 @@ ui <- fluidPage(
 
 server <- function(input, output,session) {
   
+  
+  ###ボタン的なやつ
+  
+  output$start_button_ui <- renderUI({
+    tags$button(
+      id = "start_button",
+      class = "btn action-button",
+      tags$img(src = "start.png",height = "50px",width = "300px"),
+      style="color: #000000; background-color: #000000; border-color: #000000"
+    )
+  })
+  
+  output$gallary_button_ui <- renderUI({
+    tags$button(
+      id = "gallary_button",
+      class = "btn action-button",
+      tags$img(src = "gallaery.png",height = "50px",width = "300px"),
+      style="color: #000000; background-color: #000000; border-color: #000000"
+    )
+  })
+  
+  output$staff_button_ui <- renderUI({
+    tags$button(
+      id = "staff_button",
+      class = "btn action-button",
+      tags$img(src = "credit.png",height = "50px",width = "300px"),
+      style="color: #000000; background-color: #000000; border-color: #000000"
+    )
+  })
+  
+  
   #スタート画面に飛ばす
   updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 1,sep = "") )
   
@@ -176,6 +272,11 @@ server <- function(input, output,session) {
   #ミニゲームボタンを押した際にミニゲーム画面に遷移
   observeEvent(input$minigame_button, {
     updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 5,sep = "") )
+    reverseAllMini()
+  })
+  #ギャラリーボタンを押した際にミニゲーム画面に遷移
+  observeEvent(input$gallary_button, {
+    updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 6,sep = "") )
     reverseAllMini()
   })
   
@@ -268,18 +369,18 @@ server <- function(input, output,session) {
       output$radarPlot <- renderPlot({
         radarchart(dat, 
                    axistype = 0,#ラベル表示無し
-                   seg = 1,#分割数
+                   seg = 5,#分割数
                    plty = 16,#線の種類(丸ぽち無し)
-                   pcol=7,#線の色 (黄色)
+                   pcol=6,#線の色
                    plwd=1,　#ラインの太さ 
-                   vlcex = 2,# ラベルの大きさ
+                   vlcex = 1,# ラベルの大きさ
                    pty=32,#データ点をプロットしない
                    centerzero = TRUE,#ゼロ真ん中
                    vlabels = VLabel,#ラベルの名前
-                   pdensity=100,　#塗りつぶす（斜線の）程度
+                   pdensity=0,　#塗りつぶす（斜線の）程度
                    pangle=180,　#塗りつぶす斜線の傾き
                    pfcol=7,　#塗りつぶす色(黄色)
-                   cglcol="pink",#軸の色
+                   cglcol="black",#軸の色
                    # title = "Luck"
                    title = df_sentence[df$id == card_num]
         )
