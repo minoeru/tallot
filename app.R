@@ -43,6 +43,9 @@ card_num <- 1
 
 ui <- fluidPage(
   tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")),
+  
+  tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap")),
+  
   # Shinyjsを使用できるようにする
   useShinyjs(),
   #黒画面
@@ -241,7 +244,7 @@ server <- function(input, output,session) {
   output$gallery_ui <- renderUI({
     tags$object(
       id = "gallery",
-      class = "btn action-button",
+      class = "img",
       tags$img(src = "gallery_t.png",height = "100px",width = "400px")
     )
   })
@@ -249,7 +252,7 @@ server <- function(input, output,session) {
   output$credit_ui <- renderUI({
     tags$object(
       id = "credit",
-      class = "btn action-button",
+      class = "img",
       tags$img(src = "credit_t.png",height = "100px",width = "400px")
     )
   })
