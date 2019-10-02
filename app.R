@@ -5,7 +5,7 @@ library(shinyjs)
 library(rsconnect)
 
 #csv読み込み
-df <- read.csv("tallot_2.csv")
+df <- read.csv("tallot_2.csv",encoding = "UTF-8")
 #csv各値を変数に
 df_id <- df$id
 df_a <- df$para_a
@@ -19,7 +19,7 @@ df_sentence3 <- as.character(df$sentence3)
 df_illustrator <- as.character(df$illustrator)
 
 #csv読み込み
-df_ex <- read.csv("tallot_2.csv")
+df_ex <- read.csv("tallot_2.csv",encoding = "UTF-8")
 #csv各値を変数に
 df_id_ex <- df_ex$id
 df_a_ex <- df_ex$para_a
@@ -55,9 +55,9 @@ ui <- fluidPage(
   tabsetPanel(type = "tabs",id="tallot_tab",selected = "Start",
               tabPanel(title = "Start",value = "panel_1",
                        uiOutput("title_ui", align = "center"),
-                       uiOutput("start_button_ui", align = "center"),
-                       uiOutput("gallary_button_ui", align = "center"),
-                       uiOutput("staff_button_ui", align = "center")
+                       actionButton("start_button","START READING"),
+                       actionButton("gallary_button","GALLERY"),
+                       actionButton("staff_button","CREDIT")
               ),
               tabPanel(title = "Game",value = "panel_2",
                        fluidRow(
@@ -104,8 +104,8 @@ ui <- fluidPage(
                            uiOutput("cardname"),
                            uiOutput("sentence"),
                            uiOutput("illust"),
-                           uiOutput("tweet_button_ui", align = "center"),
-                           uiOutput("home_button_ui",align = "center")
+                           uiOutput("tweet", align = "center"),
+                           actionButton("Back_to_start_button","ホームに戻る",align = "center")
                          )
                        )
               ),
@@ -148,7 +148,7 @@ ui <- fluidPage(
                          column(2,uiOutput("mini24"))
                        )
               ),
-              tabPanel(title = "Gallary",value = "panel_6",
+              tabPanel(title = "Gallery",value = "panel_6",
                        uiOutput("gallery_ui", align = "center"),
                        fluidRow(
                          column(6,uiOutput("gallary1")),
@@ -210,7 +210,7 @@ ui <- fluidPage(
                          column(6,uiOutput("gallary29")),
                          column(6,uiOutput("gallary30"))
                        ),
-                       uiOutput("home_button_ui2",align = "center")
+                       actionButton("Back_to_start_button2","ホームに戻る",align = "center")
               ),
               tabPanel(title = "Staff List",value="panel_4",
                        uiOutput("credit_ui", align = "center"),
@@ -224,8 +224,7 @@ ui <- fluidPage(
                        h4("ミノエル れしぃ comame fuchi", align = "center"),
                        h2("Tea lady(Boss)", align = "center"),
                        h4("葵", align = "center"),
-                       # fluidRow(column(1,offset = 11,actionButton("Back_to_start_button2","Back"))),
-                       uiOutput("home_button_ui3",align = "center")
+                       actionButton("Back_to_start_button3","ホームに戻る",align = "center")
               )
   )
 )
@@ -254,59 +253,6 @@ server <- function(input, output,session) {
       id = "credit",
       class = "img",
       tags$img(src = "credit_t.png",height = "100px",width = "400px")
-    )
-  })
-  
-  ###ボタン的なやつ
-  
-  output$start_button_ui <- renderUI({
-    tags$button(
-      id = "start_button",
-      class = "btn action-button",
-      tags$img(src = "start.png",height = "50px",width = "300px"),
-      style="background-color: #867ba3; border-color: #867ba3"
-    )
-  })
-  
-  output$gallary_button_ui <- renderUI({
-    tags$button(
-      id = "gallary_button",
-      class = "btn action-button",
-      tags$img(src = "gallaery.png",height = "50px",width = "300px"),
-      style="background-color: #9a82ae; border-color: #9a82ae"
-    )
-  })
-  
-  output$staff_button_ui <- renderUI({
-    tags$button(
-      id = "staff_button",
-      class = "btn action-button",
-      tags$img(src = "credit.png",height = "50px",width = "300px"),
-      style="background-color: #a184b2; border-color: #a184b2"
-    )
-  })
-  output$home_button_ui <- renderUI({
-    tags$button(
-      id = "home_button",
-      class = "btn action-button",
-      tags$img(src = "home.png",height = "50px",width = "300px"),
-      style="background-color: #a384b3; border-color: #a384b3"
-    )
-  })
-  output$home_button_ui2 <- renderUI({
-    tags$button(
-      id = "home_button2",
-      class = "btn action-button",
-      tags$img(src = "home.png",height = "50px",width = "300px"),
-      style="background-color: #a384b3; border-color: #a384b3"
-    )
-  })
-  output$home_button_ui3 <- renderUI({
-    tags$button(
-      id = "home_button3",
-      class = "btn action-button",
-      tags$img(src = "home.png",height = "50px",width = "300px"),
-      style="background-color: #a384b3; border-color: #a384b3"
     )
   })
   
@@ -442,15 +388,16 @@ server <- function(input, output,session) {
       output$cardname <- renderUI({ h1(df_sentence2[df$id == card_num]) })
       output$sentence <- renderUI({ h5(df_sentence3[df$id == card_num]) })
       output$illust <- renderUI({ h3(df_illustrator[df$id == card_num]) })
-      output$tweet_button_ui <- renderUI({
-        tags$button(
-          id = "Tweet_button",
-          class = "btn action-button",
-          onclick = "window.open('https://twitter.com/compose/tweet', '_blank')",
-          tags$img(src = "tweet.png",height = "50px",width = "300px"),
-          style="background-color: #a285b3; border-color: #a285b3"
-        )
-      })
+      output$tweet <- renderUI({ actionButton("Tweet_button","結果をツイートする",onclick = "https://twitter.com/compose/tweet', '_blank')") })
+      # output$tweet_button_ui <- renderUI({
+      #   tags$button(
+      #     id = "Tweet_button",
+      #     class = "btn action-button",
+      #     onclick = "window.open('https://twitter.com/compose/tweet', '_blank')",
+      #     tags$img(src = "tweet.png",height = "50px",width = "300px"),
+      #     style="background-color: #a285b3; border-color: #a285b3"
+      #   )
+      # })
     }
     else{
       #描写データの準備
@@ -488,7 +435,7 @@ server <- function(input, output,session) {
     }
   }
   #Backボタンが押された際にカードを裏返してStart画面へ
-  observeEvent(input$home_button, {
+  observeEvent(input$Back_to_start_button, {
     updateTabsetPanel( session, "tallot_tab",selected = paste0("panel_", 1) )
     reverseAll()
   })
@@ -600,13 +547,13 @@ server <- function(input, output,session) {
   
   ##################  ギャラリー画面   ########################
   
-  observeEvent(input$home_button2, {
+  observeEvent(input$Back_to_start_button2, {
     updateTabsetPanel(session, "tallot_tab",selected = paste0("panel_",1))
   })
   
   ##################  スタッフ画面   ########################
   #Backボタンが押された際にStart画面へ
-  observeEvent(input$home_button3, {
+  observeEvent(input$Back_to_start_button3, {
     updateTabsetPanel(session, "tallot_tab",selected = paste0("panel_",1))
   })
 }
