@@ -5,7 +5,7 @@ library(shinyjs)
 library(rsconnect)
 
 #csv読み込み
-df <- read.csv("tallot_2.csv",encoding = "UTF-8")
+df <- read.csv("tallot_2.csv",fileEncoding = "UTF-8")
 #csv各値を変数に
 df_id <- df$id
 df_a <- df$para_a
@@ -19,7 +19,7 @@ df_sentence3 <- as.character(df$sentence3)
 df_illustrator <- as.character(df$illustrator)
 
 #csv読み込み
-df_ex <- read.csv("tallot_2.csv",encoding = "UTF-8")
+df_ex <- read.csv("tallot_2.csv",fileEncoding  = "UTF-8")
 #csv各値を変数に
 df_id_ex <- df_ex$id
 df_a_ex <- df_ex$para_a
