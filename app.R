@@ -26,7 +26,7 @@ maxmin <- data.frame(
   para_e = c(100, 0)
 )
 #カード指定の変数
-card_num <- 1
+card_num <- 0
 
 ui <- fluidPage(
   tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")),
@@ -398,86 +398,49 @@ server <- function(input, output,session) {
   ##################  結果画面   ########################
   #結果画面のレーダーチャートとその他を作る関数
   makeChart <- function(){
-    if(turn_num == 0){
-      #描写データの準備
-      dat <- data.frame(
-        para_a = df_a[df$id == card_num],
-        para_b = df_b[df$id == card_num],
-        para_c = df_c[df$id == card_num],
-        para_d = df_d[df$id == card_num],
-        para_e = df_e[df$id == card_num]
+    #描写データの準備
+    dat <- data.frame(
+      para_a = df_a[df$id == card_num],
+      para_b = df_b[df$id == card_num],
+      para_c = df_c[df$id == card_num],
+      para_d = df_d[df$id == card_num],
+      para_e = df_e[df$id == card_num]
+    )
+    dat <- rbind(maxmin, dat) #データの結合
+    VLabel <- c("General","Love","Money","Personal","work") #ラベルの名前
+    #レーダーチャート作成
+    output$radarPlot <- renderPlot({
+      radarchart(dat, 
+                 axistype = 0,#ラベル表示無し
+                 seg = 5,#分割数
+                 plty = 16,#線の種類(丸ぽち無し)
+                 pcol="white",#線の色
+                 plwd=2,　#ラインの太さ 
+                 vlcex = 1,# ラベルの大きさ
+                 pty=32,#データ点をプロットしない
+                 centerzero = TRUE,#ゼロ真ん中
+                 vlabels = VLabel,#ラベルの名前
+                 pdensity=0,　#塗りつぶす（斜線の）程度
+                 pangle=180,　#塗りつぶす斜線の傾き
+                 pfcol=7,　#塗りつぶす色
+                 cglcol="white",#軸の色
+                 # title = "Luck"
+                 title = df_sentence[df$id == card_num]
       )
-      dat <- rbind(maxmin, dat) #データの結合
-      VLabel <- c("General","Love","Money","Personal","work") #ラベルの名前
-      #レーダーチャート作成
-      output$radarPlot <- renderPlot({
-        radarchart(dat, 
-                   axistype = 0,#ラベル表示無し
-                   seg = 5,#分割数
-                   plty = 16,#線の種類(丸ぽち無し)
-                   pcol="white",#線の色
-                   plwd=2,　#ラインの太さ 
-                   vlcex = 1,# ラベルの大きさ
-                   pty=32,#データ点をプロットしない
-                   centerzero = TRUE,#ゼロ真ん中
-                   vlabels = VLabel,#ラベルの名前
-                   pdensity=0,　#塗りつぶす（斜線の）程度
-                   pangle=180,　#塗りつぶす斜線の傾き
-                   pfcol=7,　#塗りつぶす色
-                   cglcol="white",#軸の色
-                   # title = "Luck"
-                   title = df_sentence[df$id == card_num]
-        )
-      },bg="#a285b3")
-      output$cardname <- renderUI({ h1(df_sentence2[df$id == card_num]) })
-      output$sentence <- renderUI({ h5(df_sentence3[df$id == card_num]) })
-      output$illust <- renderUI({ h3(df_illustrator[df$id == card_num]) })
-      output$tweet <- renderUI({ 
-        tags$div(class = "btn-container",
-                 tags$button(
-                   id = "Tweet_button",
-                   class = "btn action-button",
-                   "結果をツイートする",
-                   onclick = "https://twitter.com/compose/tweet', '_blank'"
-                 )
-        )
-      })
-      
-    }
-    else{
-      #描写データの準備
-      dat <- data.frame(
-        para_a = df_a_ex[df_ex$id == sum_num %% 100],
-        para_b = df_b_ex[df_ex$id == sum_num %% 100],
-        para_c = df_c_ex[df_ex$id == sum_num %% 100],
-        para_d = df_d_ex[df_ex$id == sum_num %% 100],
-        para_e = df_e_ex[df_ex$id == sum_num %% 100]
+    },bg="#a285b3")
+    output$cardname <- renderUI({ h1(df_sentence2[df$id == card_num]) })
+    output$sentence <- renderUI({ h5(df_sentence3[df$id == card_num]) })
+    output$illust <- renderUI({ h3(df_illustrator[df$id == card_num]) })
+    output$tweet <- renderUI({ 
+      tags$div(class = "btn-container",
+               tags$button(
+                 id = "Tweet_button",
+                 class = "btn action-button",
+                 "結果をツイートする",
+                 onclick = "window.open('https://twitter.com/compose/tweet', '_blank')"
+               )
       )
-      dat <- rbind(maxmin, dat) #データの結合
-      VLabel <- c("General","Love","Money","Personal","work") #ラベルの名前
-      #レーダーチャート作成
-      output$radarPlot <- renderPlot({
-        radarchart(dat, 
-                   axistype = 0,#ラベル表示無し
-                   seg = 1,#分割数
-                   plty = 16,#線の種類(丸ぽち無し)
-                   pcol=7,#線の色 (黄色)
-                   plwd=1,　#ラインの太さ 
-                   vlcex = 2,# ラベルの大きさ
-                   pty=32,#データ点をプロットしない
-                   centerzero = TRUE,#ゼロ真ん中
-                   vlabels = VLabel,#ラベルの名前
-                   pdensity=100,　#塗りつぶす（斜線の）程度
-                   pangle=180,　#塗りつぶす斜線の傾き
-                   pfcol=7,　#塗りつぶす色(黄色)
-                   cglcol="pink",#軸の色
-                   title = "Luck"
-        )
-      })
-      output$sentence <- renderUI({ h1(df_sentence_ex[df_ex$id == sum_num %% 100]) })
-      output$sentence2 <- renderUI({ h5(df_sentence2_ex[df_ex$id == sum_num %% 100]) })
-      output$tweet <- renderUI({ actionButton("Tweet_button","Tweet",onclick = "window.open('https://twitter.com/login?lang=ja', '_blank')") })
-    }
+    })
   }
   #Backボタンが押された際にカードを裏返してStart画面へ
   observeEvent(input$Back_to_start_button, {
