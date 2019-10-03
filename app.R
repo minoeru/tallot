@@ -2,10 +2,10 @@ library(shiny)
 library(fmsb)
 library(shinythemes)
 library(shinyjs)
-library(rsconnect)
+# library(rsconnect)
 
 #csv読み込み
-df <- read.csv("tallot_2.csv",fileEncoding = "UTF-8")
+df <- read.csv("tallot.csv",fileEncoding = "UTF-8")
 #csv各値を変数に
 df_id <- df$id
 df_a <- df$para_a
@@ -18,17 +18,17 @@ df_sentence2 <- as.character(df$sentence2)
 df_sentence3 <- as.character(df$sentence3)
 df_illustrator <- as.character(df$illustrator)
 
-#csv読み込み
-df_ex <- read.csv("tallot_2.csv",fileEncoding  = "UTF-8")
-#csv各値を変数に
-df_id_ex <- df_ex$id
-df_a_ex <- df_ex$para_a
-df_b_ex <- df_ex$para_b
-df_c_ex <- df_ex$para_c
-df_d_ex <- df_ex$para_d
-df_e_ex <- df_ex$para_e
-df_sentence_ex <- as.character(df_ex$sentence)
-df_sentence2_ex <- as.character(df_ex$sentence2)
+# #csv読み込み
+# df_ex <- read.csv("tallot_ex.csv")
+# #csv各値を変数に
+# df_id_ex <- df_ex$id
+# df_a_ex <- df_ex$para_a
+# df_b_ex <- df_ex$para_b
+# df_c_ex <- df_ex$para_c
+# df_d_ex <- df_ex$para_d
+# df_e_ex <- df_ex$para_e
+# df_sentence_ex <- as.character(df_ex$sentence)
+# df_sentence2_ex <- as.character(df_ex$sentence2)
 
 #最大、最小データの準備
 maxmin <- data.frame(
@@ -48,52 +48,72 @@ ui <- fluidPage(
   
   # Shinyjsを使用できるようにする
   useShinyjs(),
-  #黒画面
-  theme = shinytheme("cyborg"),
+  # #黒画面
+  # theme = shinytheme("cyborg"),
   
-  titlePanel("タロットゲーム"),
+  # titlePanel("タロットゲーム"),
   tabsetPanel(type = "tabs",id="tallot_tab",selected = "Start",
               tabPanel(title = "Start",value = "panel_1",
                        uiOutput("title_ui", align = "center"),
-                       actionButton("start_button","START READING"),
-                       actionButton("gallary_button","GALLERY"),
-                       actionButton("staff_button","CREDIT")
+                       # actionButton("start_button","START READING"),
+                       # actionButton("gallery_button","START READING"),
+                       # actionButton("staff_button","START READING"),
+                       uiOutput("start_button_ui"),
+                       uiOutput("slash_ui"),
+                       uiOutput("gallery_button_ui"),
+                       uiOutput("staff_button_ui")
               ),
               tabPanel(title = "Game",value = "panel_2",
-                       fluidRow(
-                         column(1,offset = 5,uiOutput("card1")),
-                         column(6)
-                       ),
-                       fluidRow(
-                         column(1,offset = 3 ,uiOutput("card2")),
-                         column(1,offset = 3,uiOutput("card3")),
-                         column(4)
-                       ),
-                       fluidRow(
-                         column(1,offset = 1,uiOutput("card4")),
-                         column(1,offset = 7,uiOutput("card5")),
-                         column(2)
-                       ),
-                       fluidRow(
-                         column(1,uiOutput("card6")),
-                         column(1,offset = 4,uiOutput("card7")),
-                         column(1,offset = 4,uiOutput("card8")),
-                         column(1)
-                       ),
-                       fluidRow(
-                         column(1,offset = 1,uiOutput("card9")),
-                         column(1,offset = 7,uiOutput("card10")),
-                         column(2)
-                       ),
-                       fluidRow(
-                         column(1,offset = 3,uiOutput("card11")),
-                         column(1,offset = 3,uiOutput("card12")),
-                         column(4)
-                       ),
-                       fluidRow(
-                         column(1,offset = 5,uiOutput("card13")),
-                         column(6)
-                       )
+                       # fluidRow(
+                       #   column(1,offset = 5,uiOutput("card1")),
+                       #   column(6)
+                       # ),
+                       # fluidRow(
+                       #   column(1,offset = 3 ,uiOutput("card2")),
+                       #   column(1,offset = 3,uiOutput("card3")),
+                       #   column(4)
+                       # ),
+                       # fluidRow(
+                       #   column(1,offset = 1,uiOutput("card4")),
+                       #   column(1,offset = 7,uiOutput("card5")),
+                       #   column(2)
+                       # ),
+                       # fluidRow(
+                       #   column(1,uiOutput("card6")),
+                       #   column(1,offset = 4,uiOutput("card7")),
+                       #   column(1,offset = 4,uiOutput("card8")),
+                       #   column(1)
+                       # ),
+                       # fluidRow(
+                       #   column(1,offset = 1,uiOutput("card9")),
+                       #   column(1,offset = 7,uiOutput("card10")),
+                       #   column(2)
+                       # ),
+                       # fluidRow(
+                       #   column(1,offset = 3,uiOutput("card11")),
+                       #   column(1,offset = 3,uiOutput("card12")),
+                       #   column(4)
+                       # ),
+                       # fluidRow(
+                       #   column(1,offset = 5,uiOutput("card13")),
+                       #   column(6)
+                       # )
+                       uiOutput("mainCard"),
+                       uiOutput("mob1"),
+                       uiOutput("mob2"),
+                       uiOutput("mob3"),
+                       uiOutput("mob4"),
+                       uiOutput("mob5"),
+                       uiOutput("mob6"),
+                       uiOutput("mob7"),
+                       uiOutput("mob8"),
+                       uiOutput("mob9"),
+                       uiOutput("mob10"),
+                       uiOutput("mob11"),
+                       uiOutput("mob12"),
+                       uiOutput("put_button_ui",align = "center")
+                       
+                       
               ),
               tabPanel(title = "Result",value = "panel_3",
                        sidebarLayout(
@@ -105,7 +125,8 @@ ui <- fluidPage(
                            uiOutput("sentence"),
                            uiOutput("illust"),
                            uiOutput("tweet", align = "center"),
-                           actionButton("Back_to_start_button","ホームに戻る",align = "center")
+                           # actionButton("Back_to_start_button","ホームに戻る",align = "center")
+                           uiOutput("Back_to_start_button_ui",align = "center")
                          )
                        )
               ),
@@ -151,66 +172,48 @@ ui <- fluidPage(
               tabPanel(title = "Gallery",value = "panel_6",
                        uiOutput("gallery_ui", align = "center"),
                        fluidRow(
-                         column(6,uiOutput("gallary1")),
-                         column(6,uiOutput("gallary2"))
+                         column(2,offset = 1,uiOutput("gallery0")),
+                         column(2,uiOutput("gallery200")),
+                         column(2,uiOutput("gallery1")),
+                         column(2,uiOutput("gallery2")),
+                         column(3,uiOutput("gallery202"))
                        ),
                        fluidRow(
-                         column(6,uiOutput("gallary3")),
-                         column(6,uiOutput("gallary4"))
+                         column(2,offset = 1,uiOutput("gallery3")),
+                         column(2,uiOutput("gallery203")),
+                         column(2,uiOutput("gallery4")),
+                         column(2,uiOutput("gallery5")),
+                         column(3,uiOutput("gallery6"))
                        ),
                        fluidRow(
-                         column(6,uiOutput("gallary5")),
-                         column(6,uiOutput("gallary6"))
+                         column(2,offset = 1,uiOutput("gallery7")),
+                         column(2,uiOutput("gallery207")),
+                         column(2,uiOutput("gallery8")),
+                         column(2,uiOutput("gallery9")),
+                         column(3,uiOutput("gallery10"))
                        ),
                        fluidRow(
-                         column(6,uiOutput("gallary7")),
-                         column(6,uiOutput("gallary8"))
+                         column(2,offset = 1,uiOutput("gallery11")),
+                         column(2,uiOutput("gallery12")),
+                         column(2,uiOutput("gallery13")),
+                         column(2,uiOutput("gallery213")),
+                         column(3,uiOutput("gallery14"))
                        ),
                        fluidRow(
-                         column(6,uiOutput("gallary9")),
-                         column(6,uiOutput("gallary10"))
+                         column(2,offset = 1,uiOutput("gallery15")),
+                         column(2,uiOutput("gallery16")),
+                         column(2,uiOutput("gallery17")),
+                         column(2,uiOutput("gallery18")),
+                         column(3,uiOutput("gallery19"))
                        ),
                        fluidRow(
-                         column(6,uiOutput("gallary11")),
-                         column(6,uiOutput("gallary12"))
+                         column(2,offset = 1,uiOutput("gallery20")),
+                         column(2,uiOutput("gallery220")),
+                         column(2,uiOutput("gallery21")),
+                         column(2,uiOutput("gallery00"))
                        ),
-                       fluidRow(
-                         column(6,uiOutput("gallary13")),
-                         column(6,uiOutput("gallary14"))
-                       ),
-                       fluidRow(
-                         column(6,uiOutput("gallary15")),
-                         column(6,uiOutput("gallary16"))
-                       ),
-                       fluidRow(
-                         column(6,uiOutput("gallary17")),
-                         column(6,uiOutput("gallary18"))
-                       ),
-                       fluidRow(
-                         column(6,uiOutput("gallary19")),
-                         column(6,uiOutput("gallary20"))
-                       ),
-                       fluidRow(
-                         column(6,uiOutput("gallary21")),
-                         column(6,uiOutput("gallary22"))
-                       ),
-                       fluidRow(
-                         column(6,uiOutput("gallary23")),
-                         column(6,uiOutput("gallary24"))
-                       ),
-                       fluidRow(
-                         column(6,uiOutput("gallary25")),
-                         column(6,uiOutput("gallary26"))
-                       ),
-                       fluidRow(
-                         column(6,uiOutput("gallary27")),
-                         column(6,uiOutput("gallary28"))
-                       ),
-                       fluidRow(
-                         column(6,uiOutput("gallary29")),
-                         column(6,uiOutput("gallary30"))
-                       ),
-                       actionButton("Back_to_start_button2","ホームに戻る",align = "center")
+                       uiOutput("Back_to_start_button_ui2",align = "center")
+                       # actionButton("Back_to_start_button2","ホームに戻る",align = "center")
               ),
               tabPanel(title = "Staff List",value="panel_4",
                        uiOutput("credit_ui", align = "center"),
@@ -222,9 +225,10 @@ ui <- fluidPage(
                        h4("okanon fuchi", align = "center"),
                        h2("Programmer", align = "center"),
                        h4("ミノエル れしぃ comame fuchi", align = "center"),
-                       h2("Tea lady(Boss)", align = "center"),
+                       h2("Tea lady(Master)", align = "center"),
                        h4("葵", align = "center"),
-                       actionButton("Back_to_start_button3","ホームに戻る",align = "center")
+                       uiOutput("Back_to_start_button_ui3",align = "center")
+                       # actionButton("Back_to_start_button3","ホームに戻る",align = "center")
               )
   )
 )
@@ -256,6 +260,87 @@ server <- function(input, output,session) {
     )
   })
   
+  #各種ボタン
+  
+  output$start_button_ui <- renderUI({
+    tags$div(class = "btn-container",
+             tags$button(
+               id = "start_button",
+               class = "btn action-button",
+               "START READING"
+             )
+    )
+  })
+  
+  output$gallery_button_ui <- renderUI({
+    tags$div(class = "btn-container",
+             tags$button(
+               id = "gallery_button",
+               class = "btn action-button",
+               "GALLERY"
+             )
+    )
+  })
+  
+  output$staff_button_ui <- renderUI({
+    tags$div(class = "btn-container",
+             tags$button(
+               id = "staff_button",
+               class = "btn action-button",
+               "CREDIT"
+             )
+    )
+  })
+  
+  output$put_button_ui <- renderUI({
+    tags$div(class = "btn-container",
+             tags$button(
+               id = "put_button",
+               class = "btn action-button",
+               "カードをめくる"
+             )
+    )
+  })
+  
+  
+  output$Back_to_start_button_ui <- renderUI({
+    tags$div(class = "btn-container",
+             tags$button(
+               id = "Back_to_start_button",
+               class = "btn action-button",
+               "ホームに戻る"
+             )
+    )
+  })
+  
+  output$Back_to_start_button_ui2 <- renderUI({
+    tags$div(class = "btn-container",
+             tags$button(
+               id = "Back_to_start_button2",
+               class = "btn action-button",
+               "ホームに戻る"
+             )
+    )
+  })
+  
+  output$Back_to_start_button_ui3 <- renderUI({
+    tags$div(class = "btn-container",
+             tags$button(
+               id = "Back_to_start_button3",
+               class = "btn action-button",
+               "ホームに戻る"
+             )
+    )
+  })
+  
+  #変な線
+  output$slash_ui <- renderUI({
+    tags$div(class = "btn-container",
+             tags$div(class = "btn-slash"
+             )
+    )
+  })
+  
   #スタート画面に飛ばす
   updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 1,sep = "") )
   
@@ -275,7 +360,7 @@ server <- function(input, output,session) {
     reverseAllMini()
   })
   #ギャラリーボタンを押した際にミニゲーム画面に遷移
-  observeEvent(input$gallary_button, {
+  observeEvent(input$gallery_button, {
     updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 6,sep = "") )
     reverseAllMini()
   })
@@ -305,22 +390,22 @@ server <- function(input, output,session) {
     )
   }
   
-  #カード選択用乱数生成関数
-  makeRan <- function(){
-    #全てのカードが出たら最後のカードから変更させない
-    if(sum(tallot_data_sets) <= -22){
-      card_num <<- 00
-      return()
-    }
-    x <- floor(runif(1,0,22))
-    if(tallot_data_sets[x+1] != x) Recall()
-    else{
-      dual <- sum( (df_id %% 100) - x == 0 )
-      ran <- floor(runif(1,0,dual))
-      card_num <<- x + ran * 100
-      tallot_data_sets[x+1] <<- -1
-    }
-  }
+  # #カード選択用乱数生成関数
+  # makeRan <- function(){
+  #   #全てのカードが出たら最後のカードから変更させない
+  #   if(sum(tallot_data_sets) <= -22){
+  #     card_num <<- 00
+  #     return()
+  #   }
+  #   x <- floor(runif(1,0,22))
+  #   if(tallot_data_sets[x+1] != x) Recall()
+  #   else{
+  #     dual <- sum( (df_id %% 100) - x == 0 )
+  #     ran <- floor(runif(1,0,dual))
+  #     card_num <<- x + ran * 100
+  #     tallot_data_sets[x+1] <<- -1
+  #   }
+  # }
   
   #カードを裏返す関数
   turnCard <- function(x){
@@ -350,6 +435,79 @@ server <- function(input, output,session) {
   
   #前処理
   reverseAll()
+  
+  ################################################
+  
+  observeEvent(input$put_button, {
+    lapply(1:12, function(x) {
+      output[[paste0("mob",x)]] <- renderUI({makeCards(x)})
+    })
+    
+    output$put_button_ui <- renderUI({})
+    
+    makeRan()
+    makeChart()
+    
+    delay(3000, output$mainCard <- renderUI({
+      tags$div(class = "btn-container",
+               tags$object(
+                 id = "object",
+                 class = "img",
+                 tags$img(src = paste0("cc_",card_num,".jpg"),height = "200px",width = "100px")
+               )
+      )
+    }) 
+    )
+    delay(6000, updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 3,sep = "") ))
+    delay(7000,allDelete())
+  })
+  
+  card_num <<- 0
+  
+  allDelete <- function(){
+    lapply(1:12, function(x) {
+      output[[paste0("mob",x)]] <- renderUI({})
+    })
+    output$mainCard <- renderUI({})
+    output$put_button_ui <- renderUI({
+      tags$div(class = "btn-container",
+               tags$button(
+                 id = "put_button",
+                 class = "btn action-button",
+                 "カードをめくる"
+               )
+      )
+    })
+  }
+  
+  #カード選択用乱数生成関数
+  makeRan <- function(){
+    #全てのカードが出たら最後のカードから変更させない
+    if(sum(tallot_data_sets) <= -22){
+      card_num <<- 00
+      return()
+    }
+    x <- floor(runif(1,0,22))
+    if(tallot_data_sets[x+1] != x) Recall()
+    else{
+      dual <- sum( (df_id %% 100) - x == 0 )
+      ran <- floor(runif(1,0,dual))
+      card_num <<- x + ran * 100
+      tallot_data_sets[x+1] <<- -1
+    }
+  }
+  
+  makeCards <- function(x){
+    tags$div(class = "btn-container",
+             tags$object(
+               id = "object",
+               class = "img",
+               tags$img(src = "cc_00.jpg",height = "200px",width = "100px")
+             )
+    )
+  }
+  
+  
   
   ##################  結果画面   ########################
   #結果画面のレーダーチャートとその他を作る関数
@@ -388,16 +546,17 @@ server <- function(input, output,session) {
       output$cardname <- renderUI({ h1(df_sentence2[df$id == card_num]) })
       output$sentence <- renderUI({ h5(df_sentence3[df$id == card_num]) })
       output$illust <- renderUI({ h3(df_illustrator[df$id == card_num]) })
-      output$tweet <- renderUI({ actionButton("Tweet_button","結果をツイートする",onclick = "https://twitter.com/compose/tweet', '_blank')") })
-      # output$tweet_button_ui <- renderUI({
-      #   tags$button(
-      #     id = "Tweet_button",
-      #     class = "btn action-button",
-      #     onclick = "window.open('https://twitter.com/compose/tweet', '_blank')",
-      #     tags$img(src = "tweet.png",height = "50px",width = "300px"),
-      #     style="background-color: #a285b3; border-color: #a285b3"
-      #   )
-      # })
+      output$tweet <- renderUI({ 
+        tags$div(class = "btn-container",
+                 tags$button(
+                   id = "Tweet_button",
+                   class = "btn action-button",
+                   "結果をツイートする",
+                   onclick = "https://twitter.com/compose/tweet', '_blank'"
+                 )
+        )
+      })
+      
     }
     else{
       #描写データの準備
@@ -547,6 +706,40 @@ server <- function(input, output,session) {
   
   ##################  ギャラリー画面   ########################
   
+  
+  #ギャラリーを精製する関数
+  makeGarraly <- function(x){
+    text <- paste0("gallerys",x)
+    tags$object(
+      id = text,
+      class = "img",
+      tags$img(src = paste0("cc_",x,".jpg"),height = "200px",width = "100px")
+    )
+  }
+  
+  makeGarraly2 <- function(x){output[[paste0("gallery",x)]] <- renderUI({makeGarraly(x)})}
+  
+  lapply(0:21, function(x) makeGarraly2(x))
+  
+  #エクストラ
+  
+  makeGarraly2(200)
+  makeGarraly2(202)
+  makeGarraly2(203)
+  makeGarraly2(207)
+  makeGarraly2(213)
+  makeGarraly2(220)
+  
+  #裏面
+  output$gallery00 <- renderUI({
+    tags$object(
+      id = "gallery00",
+      class = "img",
+      tags$img(src = "cc_00.jpg",height = "200px",width = "100px")
+    )
+  })
+  
+  #Backボタンが押された際にStart画面へ
   observeEvent(input$Back_to_start_button2, {
     updateTabsetPanel(session, "tallot_tab",selected = paste0("panel_",1))
   })
