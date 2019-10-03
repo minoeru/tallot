@@ -1,0 +1,69 @@
+  #全てのカードを裏返す関数
+  reverseAll <- function(){
+    lapply(1:13 , function(x) output[[paste0("card",x)]] <- renderUI({makeUi(x)}))
+    #重複対策
+    tallot_data_sets <<- c(0:21)
+    #めくる枚数とめくった番号の合計
+    turn_num <<- 0
+    sum_num <<- 0
+    #再反転対策
+    reverse_protect <<- c(1:13)
+  }
+  
+  #カードを裏面で生成する関数
+  makeUi <- function(x){
+    text <- paste("button",x,sep = "")
+    tags$button(
+      id = text,
+      class = "btn action-button",
+      tags$img(src = paste("cc_","00",".jpg",sep = ""),height = "200px",width = "100px"),
+      style="color: #000000; background-color: #000000; border-color: #000000"
+      #実際はこれ tags$img(src = paste("mt_",00,".png",sep = ""),height = "200px",width = "100px")
+    )
+  }
+
+  #カード選択用乱数生成関数
+  makeRan <- function(){
+    #全てのカードが出たら最後のカードから変更させない
+    if(sum(tallot_data_sets) <= -22){
+      card_num <<- 00
+      return()
+    }
+    x <- floor(runif(1,0,22))
+    if(tallot_data_sets[x+1] != x) Recall()
+    else{
+      dual <- sum( (df_id %% 100) - x == 0 )
+      ran <- floor(runif(1,0,dual))
+      card_num <<- x + ran * 100
+      tallot_data_sets[x+1] <<- -1
+    }
+  }
+  
+  #カードを裏返す関数
+  turnCard <- function(x){
+    turn_num <<- turn_num + 1
+    sum_num <<- sum_num + (card_num %% 100)
+    reverse_protect[x] <<- 0
+    text <- paste0("button",x)
+    tags$button(
+      id = text,
+      class = "btn action-button",
+      tags$img(src = paste0("cc_", card_num ,".jpg"),height = "200px",width = "100px"),
+      style="color: #000000; background-color: #000000; border-color: #000000"
+      # tags$img(src = paste0("tallot_", card_num ,".png"),height = "200px",width = "100px")
+    )
+  }
+  
+  #各カードのボタンが押された際に乱数生成=>画像変換=>結果描写
+  lapply(1:13, function(x){
+    observeEvent(input[[paste0("button",x)]],{
+      if(reverse_protect[x] == x){
+        makeRan()
+        output[[paste0("card",x)]] <- renderUI({turnCard(x)})
+        makeChart()
+      }
+    })
+  })
+  
+  #前処理
+  reverseAll()

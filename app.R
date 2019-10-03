@@ -1,6 +1,5 @@
 library(shiny)
 library(fmsb)
-library(shinythemes)
 library(shinyjs)
 # library(rsconnect)
 
@@ -17,18 +16,6 @@ df_sentence <- as.character(df$sentence)
 df_sentence2 <- as.character(df$sentence2)
 df_sentence3 <- as.character(df$sentence3)
 df_illustrator <- as.character(df$illustrator)
-
-# #csv読み込み
-# df_ex <- read.csv("tallot_ex.csv")
-# #csv各値を変数に
-# df_id_ex <- df_ex$id
-# df_a_ex <- df_ex$para_a
-# df_b_ex <- df_ex$para_b
-# df_c_ex <- df_ex$para_c
-# df_d_ex <- df_ex$para_d
-# df_e_ex <- df_ex$para_e
-# df_sentence_ex <- as.character(df_ex$sentence)
-# df_sentence2_ex <- as.character(df_ex$sentence2)
 
 #最大、最小データの準備
 maxmin <- data.frame(
@@ -48,10 +35,7 @@ ui <- fluidPage(
   
   # Shinyjsを使用できるようにする
   useShinyjs(),
-  # #黒画面
-  # theme = shinytheme("cyborg"),
   
-  # titlePanel("タロットゲーム"),
   tabsetPanel(type = "tabs",id="tallot_tab",selected = "Start",
               tabPanel(title = "Start",value = "panel_1",
                        uiOutput("title_ui", align = "center"),
@@ -64,40 +48,6 @@ ui <- fluidPage(
                        uiOutput("staff_button_ui")
               ),
               tabPanel(title = "Game",value = "panel_2",
-                       # fluidRow(
-                       #   column(1,offset = 5,uiOutput("card1")),
-                       #   column(6)
-                       # ),
-                       # fluidRow(
-                       #   column(1,offset = 3 ,uiOutput("card2")),
-                       #   column(1,offset = 3,uiOutput("card3")),
-                       #   column(4)
-                       # ),
-                       # fluidRow(
-                       #   column(1,offset = 1,uiOutput("card4")),
-                       #   column(1,offset = 7,uiOutput("card5")),
-                       #   column(2)
-                       # ),
-                       # fluidRow(
-                       #   column(1,uiOutput("card6")),
-                       #   column(1,offset = 4,uiOutput("card7")),
-                       #   column(1,offset = 4,uiOutput("card8")),
-                       #   column(1)
-                       # ),
-                       # fluidRow(
-                       #   column(1,offset = 1,uiOutput("card9")),
-                       #   column(1,offset = 7,uiOutput("card10")),
-                       #   column(2)
-                       # ),
-                       # fluidRow(
-                       #   column(1,offset = 3,uiOutput("card11")),
-                       #   column(1,offset = 3,uiOutput("card12")),
-                       #   column(4)
-                       # ),
-                       # fluidRow(
-                       #   column(1,offset = 5,uiOutput("card13")),
-                       #   column(6)
-                       # )
                        uiOutput("mainCard"),
                        uiOutput("mob1"),
                        uiOutput("mob2"),
@@ -112,8 +62,6 @@ ui <- fluidPage(
                        uiOutput("mob11"),
                        uiOutput("mob12"),
                        uiOutput("put_button_ui",align = "center")
-                       
-                       
               ),
               tabPanel(title = "Result",value = "panel_3",
                        sidebarLayout(
@@ -348,7 +296,6 @@ server <- function(input, output,session) {
   #スタートボタンを押した際にゲーム画面に遷移
   observeEvent(input$start_button, {
     updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 2,sep = "") )
-    reverseAll()
   })
   #スタッフボタンを押した際にスタッフ画面に遷移
   observeEvent(input$staff_button, {
@@ -366,88 +313,23 @@ server <- function(input, output,session) {
   })
   
   ##################  ゲーム画面   ########################
-  #全てのカードを裏返す関数
-  reverseAll <- function(){
-    lapply(1:13 , function(x) output[[paste0("card",x)]] <- renderUI({makeUi(x)}))
-    #重複対策
-    tallot_data_sets <<- c(0:21)
-    #めくる枚数とめくった番号の合計
-    turn_num <<- 0
-    sum_num <<- 0
-    #再反転対策
-    reverse_protect <<- c(1:13)
-  }
+
   
-  #カードを裏面で生成する関数
-  makeUi <- function(x){
-    text <- paste("button",x,sep = "")
-    tags$button(
-      id = text,
-      class = "btn action-button",
-      tags$img(src = paste("cc_","00",".jpg",sep = ""),height = "200px",width = "100px"),
-      style="color: #000000; background-color: #000000; border-color: #000000"
-      #実際はこれ tags$img(src = paste("mt_",00,".png",sep = ""),height = "200px",width = "100px")
-    )
-  }
   
-  # #カード選択用乱数生成関数
-  # makeRan <- function(){
-  #   #全てのカードが出たら最後のカードから変更させない
-  #   if(sum(tallot_data_sets) <= -22){
-  #     card_num <<- 00
-  #     return()
-  #   }
-  #   x <- floor(runif(1,0,22))
-  #   if(tallot_data_sets[x+1] != x) Recall()
-  #   else{
-  #     dual <- sum( (df_id %% 100) - x == 0 )
-  #     ran <- floor(runif(1,0,dual))
-  #     card_num <<- x + ran * 100
-  #     tallot_data_sets[x+1] <<- -1
-  #   }
-  # }
-  
-  #カードを裏返す関数
-  turnCard <- function(x){
-    turn_num <<- turn_num + 1
-    sum_num <<- sum_num + (card_num %% 100)
-    reverse_protect[x] <<- 0
-    text <- paste0("button",x)
-    tags$button(
-      id = text,
-      class = "btn action-button",
-      tags$img(src = paste0("cc_", card_num ,".jpg"),height = "200px",width = "100px"),
-      style="color: #000000; background-color: #000000; border-color: #000000"
-      # tags$img(src = paste0("tallot_", card_num ,".png"),height = "200px",width = "100px")
-    )
-  }
-  
-  #各カードのボタンが押された際に乱数生成=>画像変換=>結果描写
-  lapply(1:13, function(x){
-    observeEvent(input[[paste0("button",x)]],{
-      if(reverse_protect[x] == x){
-        makeRan()
-        output[[paste0("card",x)]] <- renderUI({turnCard(x)})
-        makeChart()
-      }
-    })
-  })
-  
-  #前処理
-  reverseAll()
-  
-  ################################################
-  
+  #カードをめくるボタンが 押された時の処理
   observeEvent(input$put_button, {
+    #裏面カード生成
     lapply(1:12, function(x) {
       output[[paste0("mob",x)]] <- renderUI({makeCards(x)})
     })
     
+    #カードをめくるボタン消滅
     output$put_button_ui <- renderUI({})
-    
+    #乱数生成
     makeRan()
+    #グラフにプロット
     makeChart()
-    
+    #ams後に表のカード生成
     delay(3000, output$mainCard <- renderUI({
       tags$div(class = "btn-container",
                tags$object(
@@ -456,15 +338,19 @@ server <- function(input, output,session) {
                  tags$img(src = paste0("cc_",card_num,".jpg"),height = "200px",width = "100px")
                )
       )
-    }) 
+    })
     )
+    #bms後にページ遷移
     delay(6000, updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 3,sep = "") ))
+    #cms後にカード消滅ボタン復活
     delay(7000,allDelete())
   })
-  
+  #カードの生成用変数
   card_num <<- 0
   
+  #カード消滅兼ボタン復活用関数
   allDelete <- function(){
+    card_num <<- 0
     lapply(1:12, function(x) {
       output[[paste0("mob",x)]] <- renderUI({})
     })
@@ -596,7 +482,6 @@ server <- function(input, output,session) {
   #Backボタンが押された際にカードを裏返してStart画面へ
   observeEvent(input$Back_to_start_button, {
     updateTabsetPanel( session, "tallot_tab",selected = paste0("panel_", 1) )
-    reverseAll()
   })
   
   ##################  ミニゲーム画面   ########################
@@ -705,8 +590,7 @@ server <- function(input, output,session) {
   reverseAllMini()
   
   ##################  ギャラリー画面   ########################
-  
-  
+
   #ギャラリーを精製する関数
   makeGarraly <- function(x){
     text <- paste0("gallerys",x)
@@ -722,7 +606,6 @@ server <- function(input, output,session) {
   lapply(0:21, function(x) makeGarraly2(x))
   
   #エクストラ
-  
   makeGarraly2(200)
   makeGarraly2(202)
   makeGarraly2(203)
