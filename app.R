@@ -29,7 +29,7 @@ maxmin <- data.frame(
 card_num <- 0
 
 ui <- fluidPage(
-  tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")),
+  tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css"),tags$script(src = "script.js")),
   
   tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap")),
   
