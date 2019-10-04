@@ -1,7 +1,12 @@
 body {
-    min-height: 100vh;
     font-family: 'Noto Sans JP', sans-serif;
     background: linear-gradient(180deg, rgba(77, 103, 132, 1) 0%, rgba(167, 135, 181, 1) 100%);
+}
+
+.active{
+ position: relative;
+ min-height: 100vh; 
+ overflow: hidden;
 }
 
 .nav{
@@ -10,6 +15,7 @@ body {
 
 #title img{
   margin-top: 30vh;
+  margin-bottom: 3vh;
   max-width: 100% !important;
   height: auto !important;
 }
@@ -61,4 +67,28 @@ body {
   border-radius: 45px;
   height: 55px;
   z-index: -1;
+}
+
+.sizuku {
+ animation: sizuku 1s linear 0s;
+ border-radius: 50%;
+ border: 3px solid white;
+ position: absolute;
+ z-index: 1000;
+}
+
+@keyframes sizuku {
+ 0% {
+   height: 0;
+   opacity: 1;
+   transform: translate(0, 0);
+   width: 0;.
+}
+100% {
+   height: 400px;
+   width: 400px;
+   opacity: 0;
+   transform: translate(-200px, -200px);
+   border-width: 0px;
+ }
 }
