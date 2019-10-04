@@ -1,7 +1,7 @@
 library(shiny)
 library(fmsb)
 library(shinyjs)
-# library(rsconnect)
+library(rsconnect)
 
 #csv読み込み
 df <- read.csv("tallot.csv",fileEncoding = "UTF-8")
@@ -39,9 +39,6 @@ ui <- fluidPage(
   tabsetPanel(type = "tabs",id="tallot_tab",selected = "Start",
               tabPanel(title = "Start",value = "panel_1",
                        uiOutput("title_ui", align = "center"),
-                       # actionButton("start_button","START READING"),
-                       # actionButton("gallery_button","START READING"),
-                       # actionButton("staff_button","START READING"),
                        uiOutput("start_button_ui"),
                        uiOutput("slash_ui"),
                        uiOutput("gallery_button_ui"),
@@ -73,7 +70,6 @@ ui <- fluidPage(
                            uiOutput("sentence"),
                            uiOutput("illust"),
                            uiOutput("tweet", align = "center"),
-                           # actionButton("Back_to_start_button","ホームに戻る",align = "center")
                            uiOutput("Back_to_start_button_ui",align = "center")
                          )
                        )
@@ -161,7 +157,6 @@ ui <- fluidPage(
                          column(2,uiOutput("gallery00"))
                        ),
                        uiOutput("Back_to_start_button_ui2",align = "center")
-                       # actionButton("Back_to_start_button2","ホームに戻る",align = "center")
               ),
               tabPanel(title = "Staff List",value="panel_4",
                        uiOutput("credit_ui", align = "center"),
@@ -176,7 +171,6 @@ ui <- fluidPage(
                        h2("Tea lady(Master)", align = "center"),
                        h4("葵", align = "center"),
                        uiOutput("Back_to_start_button_ui3",align = "center")
-                       # actionButton("Back_to_start_button3","ホームに戻る",align = "center")
               )
   )
 )
@@ -211,7 +205,7 @@ server <- function(input, output,session) {
   #各種ボタン
   
   output$start_button_ui <- renderUI({
-    tags$div(class = "btn-container",
+    tags$div(class = "btn-container start-btn-container",
              tags$button(
                id = "start_button",
                class = "btn action-button",
@@ -331,7 +325,7 @@ server <- function(input, output,session) {
     makeChart()
     #ams後に表のカード生成
     delay(3000, output$mainCard <- renderUI({
-      tags$div(class = "btn-container",
+      tags$div(class = "img-container",
                tags$object(
                  id = "object",
                  class = "img",
@@ -384,7 +378,7 @@ server <- function(input, output,session) {
   }
   
   makeCards <- function(x){
-    tags$div(class = "btn-container",
+    tags$div(class = "img-container",
              tags$object(
                id = "object",
                class = "img",
