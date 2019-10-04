@@ -31,11 +31,18 @@ body {
   margin: 2vh;
   font-size: 16px;
   transition: .3s;
+  z-index: 1;
 }
 
 .btn:hover{
   transform: scale(1.1);
   color: white;
+}
+
+.start-btn-container button:hover{
+  transform: scale(1);
+  background: white;
+  color: rgba(77, 103, 132, 1);
 }
 
 .btn-slash{
@@ -53,4 +60,5 @@ body {
   width: 290px;
   border-radius: 45px;
   height: 55px;
+  z-index: -1;
 }
