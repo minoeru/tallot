@@ -3,10 +3,44 @@ body {
     background: linear-gradient(180deg, rgba(77, 103, 132, 1) 0%, rgba(167, 135, 181, 1) 100%);
 }
 
-.active{
+h2{
+  color: white;
+}
+
+h4{
+  color: white;
+}
+
+.tab-content .tab-pane:nth-child(1){
  position: relative;
  min-height: 100vh; 
  overflow: hidden;
+}
+
+.tab-content .tab-pane:nth-child(6){
+    max-width: 600px;
+    margin: 5vw auto;
+    padding-bottom: 10px;
+    border: solid 1px white;
+    font-size: 0;
+}
+
+.tab-pane>h2{
+  margin: 40px 0 25px 0;
+}
+
+.tab-pane>h4{
+  display: inline-block;
+  width: 50%;
+  padding: 10px 0;
+}
+
+.tab-pane>h4:last-of-type{
+  width: 100%;
+}
+
+#Back_to_start_button3{
+  margin: 50px 0;
 }
 
 .nav{
@@ -15,6 +49,13 @@ body {
 
 #title img{
   margin-top: 30vh;
+  margin-bottom: 3vh;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+#credit img{
+  margin-top:10vh;
   margin-bottom: 3vh;
   max-width: 100% !important;
   height: auto !important;
