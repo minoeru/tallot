@@ -161,13 +161,32 @@ ui <- fluidPage(
               tabPanel(title = "Staff List",value="panel_4",
                        uiOutput("credit_ui", align = "center"),
                        h2("Illustrator", align = "center"),
-                       h4("ロジ まつり",align="center"),
-                       h4("かずみ サ^ｎ ろろ オダマキ れしぃ やまろ fuchi ゆーが okanon ここなつ ",align="center"),
-                       h4("てぃらみー エディ ごぼぬん 藤汐 aozam サカモト ", align = "center"),
+                       h4("ロジ",align="center"),
+                       h4("まつり", align = "center"),
+                       h4("エディ", align = "center"),
+                       h4("かずみ", align = "center"),
+                       h4("サ^ｎ", align = "center"),
+                       h4("ろろ", align = "center"),
+                       h4("オダマキ", align = "center"),
+                       h4("れしい", align = "center"),
+                       h4("やまろ", align = "center"),
+                       h4("fuchi", align = "center"),
+                       h4("ゆーが", align = "center"),
+                       h4("okanon", align = "center"),
+                       h4("ここなつ ",align="center"),
+                       h4("てぃらみー", align = "center"),
+                       h4("ごぼぬん", align = "center"),
+                       h4("藤汐", align = "center"),
+                       h4("aozam", align = "center"),
+                       h4("サカモト ", align = "center"),
                        h2("Designer", align = "center"),
-                       h4("okanon fuchi", align = "center"),
+                       h4("fuchi", align = "center"),
+                       h4("okanon", align = "center"),
                        h2("Programmer", align = "center"),
-                       h4("ミノエル れしぃ comame fuchi", align = "center"),
+                       h4("ミノエル", align = "center"),
+                       h4("れしい", align = "center"),
+                       h4("comame", align = "center"),
+                       h4("fuchi", align = "center"),
                        h2("Tea lady(Master)", align = "center"),
                        h4("葵", align = "center"),
                        uiOutput("Back_to_start_button_ui3",align = "center")
@@ -198,7 +217,7 @@ server <- function(input, output,session) {
     tags$object(
       id = "credit",
       class = "img",
-      tags$img(src = "credit_t.png",height = "100px",width = "400px")
+      tags$img(src = "credit_t.png",height = "99px",width = "281px")
     )
   })
   
