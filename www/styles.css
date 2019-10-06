@@ -118,6 +118,14 @@ h4{
  z-index: 1000;
 }
 
+.star {
+ position: absolute;
+ background: white;
+ opacity: 0;
+ clip-path: polygon(50% 0, 62% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%, 43% 39%, 13% 39%, 37% 55%, 28% 81%, 50% 65%, 72% 81%, 63% 55%, 87% 39%, 59% 39%, 50% 10%, 43% 39%, 39% 35%);
+ -webkit-clip-path: polygon(50% 0, 62% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%, 43% 39%, 13% 39%, 37% 55%, 28% 81%, 50% 65%, 72% 81%, 63% 55%, 87% 39%, 59% 39%, 50% 10%, 43% 39%, 39% 35%);
+}
+
 @keyframes sizuku {
  0% {
    height: 0;
@@ -132,4 +140,14 @@ h4{
    transform: translate(-200px, -200px);
    border-width: 0px;
  }
+}
+
+@keyframes star {
+ 0% {
+    opacity: 1;
+}
+100% {
+    transform: translate(0, -100px) rotate(80deg) scale(.5);
+    opacity: 0;
+  }
 }
