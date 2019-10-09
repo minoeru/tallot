@@ -115,46 +115,36 @@ ui <- fluidPage(
               ),
               tabPanel(title = "Gallery",value = "panel_6",
                        uiOutput("gallery_ui", align = "center"),
-                       fluidRow(
-                         column(2,offset = 1,uiOutput("gallery0")),
-                         column(2,uiOutput("gallery200")),
-                         column(2,uiOutput("gallery1")),
-                         column(2,uiOutput("gallery2")),
-                         column(3,uiOutput("gallery202"))
-                       ),
-                       fluidRow(
-                         column(2,offset = 1,uiOutput("gallery3")),
-                         column(2,uiOutput("gallery203")),
-                         column(2,uiOutput("gallery4")),
-                         column(2,uiOutput("gallery5")),
-                         column(3,uiOutput("gallery6"))
-                       ),
-                       fluidRow(
-                         column(2,offset = 1,uiOutput("gallery7")),
-                         column(2,uiOutput("gallery207")),
-                         column(2,uiOutput("gallery8")),
-                         column(2,uiOutput("gallery9")),
-                         column(3,uiOutput("gallery10"))
-                       ),
-                       fluidRow(
-                         column(2,offset = 1,uiOutput("gallery11")),
-                         column(2,uiOutput("gallery12")),
-                         column(2,uiOutput("gallery13")),
-                         column(2,uiOutput("gallery213")),
-                         column(3,uiOutput("gallery14"))
-                       ),
-                       fluidRow(
-                         column(2,offset = 1,uiOutput("gallery15")),
-                         column(2,uiOutput("gallery16")),
-                         column(2,uiOutput("gallery17")),
-                         column(2,uiOutput("gallery18")),
-                         column(3,uiOutput("gallery19"))
-                       ),
-                       fluidRow(
-                         column(2,offset = 1,uiOutput("gallery20")),
-                         column(2,uiOutput("gallery220")),
-                         column(2,uiOutput("gallery21")),
-                         column(2,uiOutput("gallery00"))
+                       tags$div(class="garraly-container",
+                         uiOutput("gallery0"),
+                         uiOutput("gallery200"),
+                         uiOutput("gallery1"),
+                         uiOutput("gallery2"),
+                         uiOutput("gallery202"),
+                         uiOutput("gallery3"),
+                         uiOutput("gallery203"),
+                         uiOutput("gallery4"),
+                         uiOutput("gallery5"),
+                         uiOutput("gallery6"),
+                         uiOutput("gallery7"),
+                         uiOutput("gallery207"),
+                         uiOutput("gallery8"),
+                         uiOutput("gallery9"),
+                         uiOutput("gallery10"),
+                         uiOutput("gallery11"),
+                         uiOutput("gallery12"),
+                         uiOutput("gallery13"),
+                         uiOutput("gallery213"),
+                         uiOutput("gallery14"),
+                         uiOutput("gallery15"),
+                         uiOutput("gallery16"),
+                         uiOutput("gallery17"),
+                         uiOutput("gallery18"),
+                         uiOutput("gallery19"),
+                         uiOutput("gallery20"),
+                         uiOutput("gallery220"),
+                         uiOutput("gallery21"),
+                         uiOutput("gallery00")
                        ),
                        uiOutput("Back_to_start_button_ui2",align = "center")
               ),
