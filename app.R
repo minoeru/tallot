@@ -30,12 +30,10 @@ card_num <- 0
 
 ui <- fluidPage(
   tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css"),tags$script(src = "script.js")),
-  
   tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap")),
   
   # Shinyjsを使用できるようにする
   useShinyjs(),
-  
   tabsetPanel(type = "tabs",id="tallot_tab",selected = "Start",
               tabPanel(title = "Start",value = "panel_1",
                        uiOutput("title_ui", align = "center"),
@@ -45,34 +43,34 @@ ui <- fluidPage(
                        uiOutput("staff_button_ui")
               ),
               tabPanel(title = "Game",value = "panel_2",
-                       uiOutput("mainCard"),
-                       uiOutput("mob1"),
-                       uiOutput("mob2"),
-                       uiOutput("mob3"),
-                       uiOutput("mob4"),
-                       uiOutput("mob5"),
-                       uiOutput("mob6"),
-                       uiOutput("mob7"),
-                       uiOutput("mob8"),
-                       uiOutput("mob9"),
-                       uiOutput("mob10"),
-                       uiOutput("mob11"),
-                       uiOutput("mob12"),
+                       tags$div(class="game-container",
+                                uiOutput("mainCard"),
+                                uiOutput("mob1"),
+                                uiOutput("mob2"),
+                                uiOutput("mob3"),
+                                uiOutput("mob4"),
+                                uiOutput("mob5"),
+                                uiOutput("mob6"),
+                                uiOutput("mob7"),
+                                uiOutput("mob8"),
+                                uiOutput("mob9"),
+                                uiOutput("mob10"),
+                                uiOutput("mob11"),
+                                uiOutput("mob12")
+                       ),
                        uiOutput("put_button_ui",align = "center")
               ),
               tabPanel(title = "Result",value = "panel_3",
-                       sidebarLayout(
-                         sidebarPanel(
-                           plotOutput("radarPlot")
-                         ),
-                         mainPanel(
-                           uiOutput("cardname"),
-                           uiOutput("sentence"),
-                           uiOutput("illust"),
-                           uiOutput("tweet", align = "center"),
-                           uiOutput("Back_to_start_button_ui",align = "center")
-                         )
-                       )
+                       uiOutput("cardnumber",align = "center"),
+                       uiOutput("cardnameimage",align = "center"),
+                       uiOutput("cardimage",align = "center"),
+                       uiOutput("cardname",align = "center"),
+                       uiOutput("slash_ui2"),
+                       uiOutput("sentence",align = "center"),
+                       plotOutput("radarPlot"),
+                       uiOutput("illust",align = "center"),
+                       uiOutput("tweet",align = "center"),
+                       uiOutput("Back_to_start_button_ui",align = "center")
               ),
               tabPanel(title = "Mini Game",value = "panel_5",
                        fluidRow(
@@ -116,35 +114,35 @@ ui <- fluidPage(
               tabPanel(title = "Gallery",value = "panel_6",
                        uiOutput("gallery_ui", align = "center"),
                        tags$div(class="garraly-container",
-                         uiOutput("gallery0"),
-                         uiOutput("gallery200"),
-                         uiOutput("gallery1"),
-                         uiOutput("gallery2"),
-                         uiOutput("gallery202"),
-                         uiOutput("gallery3"),
-                         uiOutput("gallery203"),
-                         uiOutput("gallery4"),
-                         uiOutput("gallery5"),
-                         uiOutput("gallery6"),
-                         uiOutput("gallery7"),
-                         uiOutput("gallery207"),
-                         uiOutput("gallery8"),
-                         uiOutput("gallery9"),
-                         uiOutput("gallery10"),
-                         uiOutput("gallery11"),
-                         uiOutput("gallery12"),
-                         uiOutput("gallery13"),
-                         uiOutput("gallery213"),
-                         uiOutput("gallery14"),
-                         uiOutput("gallery15"),
-                         uiOutput("gallery16"),
-                         uiOutput("gallery17"),
-                         uiOutput("gallery18"),
-                         uiOutput("gallery19"),
-                         uiOutput("gallery20"),
-                         uiOutput("gallery220"),
-                         uiOutput("gallery21"),
-                         uiOutput("gallery00")
+                                uiOutput("gallery0"),
+                                uiOutput("gallery200"),
+                                uiOutput("gallery1"),
+                                uiOutput("gallery2"),
+                                uiOutput("gallery202"),
+                                uiOutput("gallery3"),
+                                uiOutput("gallery203"),
+                                uiOutput("gallery4"),
+                                uiOutput("gallery5"),
+                                uiOutput("gallery6"),
+                                uiOutput("gallery7"),
+                                uiOutput("gallery207"),
+                                uiOutput("gallery8"),
+                                uiOutput("gallery9"),
+                                uiOutput("gallery10"),
+                                uiOutput("gallery11"),
+                                uiOutput("gallery12"),
+                                uiOutput("gallery13"),
+                                uiOutput("gallery213"),
+                                uiOutput("gallery14"),
+                                uiOutput("gallery15"),
+                                uiOutput("gallery16"),
+                                uiOutput("gallery17"),
+                                uiOutput("gallery18"),
+                                uiOutput("gallery19"),
+                                uiOutput("gallery20"),
+                                uiOutput("gallery220"),
+                                uiOutput("gallery21"),
+                                uiOutput("gallery00")
                        ),
                        uiOutput("Back_to_start_button_ui2",align = "center")
               ),
@@ -212,7 +210,6 @@ server <- function(input, output,session) {
   })
   
   #各種ボタン
-  
   output$start_button_ui <- renderUI({
     tags$div(class = "btn-container start-btn-container",
              tags$button(
@@ -253,7 +250,6 @@ server <- function(input, output,session) {
     )
   })
   
-  
   output$Back_to_start_button_ui <- renderUI({
     tags$div(class = "btn-container",
              tags$button(
@@ -293,39 +289,37 @@ server <- function(input, output,session) {
   })
   
   #スタート画面に飛ばす
-  updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 1,sep = "") )
+  updateTabsetPanel( session, "tallot_tab",selected = "panel_1")
   
   ##################  スタート画面   ########################
   #スタートボタンを押した際にゲーム画面に遷移
   observeEvent(input$start_button, {
-    updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 2,sep = "") )
+    updateTabsetPanel( session, "tallot_tab",selected = "panel_2")
   })
   #スタッフボタンを押した際にスタッフ画面に遷移
   observeEvent(input$staff_button, {
-    updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 4,sep = "") )
+    updateTabsetPanel( session, "tallot_tab",selected = "panel_4")
   })
   #ミニゲームボタンを押した際にミニゲーム画面に遷移
   observeEvent(input$minigame_button, {
-    updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 5,sep = "") )
+    updateTabsetPanel( session, "tallot_tab",selected = "panel_5")
     reverseAllMini()
   })
   #ギャラリーボタンを押した際にミニゲーム画面に遷移
   observeEvent(input$gallery_button, {
-    updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 6,sep = "") )
+    updateTabsetPanel( session, "tallot_tab",selected = "panel_6")
     reverseAllMini()
   })
   
   ##################  ゲーム画面   ########################
-
   
+  #裏面カード生成
+  lapply(1:12, function(x) {
+    output[[paste0("mob",x)]] <- renderUI({makeCards(x)})
+  })
   
   #カードをめくるボタンが 押された時の処理
   observeEvent(input$put_button, {
-    #裏面カード生成
-    lapply(1:12, function(x) {
-      output[[paste0("mob",x)]] <- renderUI({makeCards(x)})
-    })
-    
     #カードをめくるボタン消滅
     output$put_button_ui <- renderUI({})
     #乱数生成
@@ -344,7 +338,7 @@ server <- function(input, output,session) {
     })
     )
     #bms後にページ遷移
-    delay(6000, updateTabsetPanel( session, "tallot_tab",selected = paste("panel_", 3,sep = "") ))
+    delay(6000, updateTabsetPanel( session, "tallot_tab",selected = "panel_3"))
     #cms後にカード消滅ボタン復活
     delay(7000,allDelete())
   })
@@ -354,9 +348,6 @@ server <- function(input, output,session) {
   #カード消滅兼ボタン復活用関数
   allDelete <- function(){
     card_num <<- 0
-    lapply(1:12, function(x) {
-      output[[paste0("mob",x)]] <- renderUI({})
-    })
     output$mainCard <- renderUI({})
     output$put_button_ui <- renderUI({
       tags$div(class = "btn-container",
@@ -387,7 +378,7 @@ server <- function(input, output,session) {
   }
   
   makeCards <- function(x){
-    tags$div(class = "img-container",
+    tags$div(class = "reverse-container",
              tags$object(
                id = "object",
                class = "img",
@@ -395,8 +386,6 @@ server <- function(input, output,session) {
              )
     )
   }
-  
-  
   
   ##################  結果画面   ########################
   #結果画面のレーダーチャートとその他を作る関数
@@ -431,9 +420,46 @@ server <- function(input, output,session) {
                  title = df_sentence[df$id == card_num]
       )
     },bg="#a285b3")
-    output$cardname <- renderUI({ h1(df_sentence2[df$id == card_num]) })
-    output$sentence <- renderUI({ h5(df_sentence3[df$id == card_num]) })
-    output$illust <- renderUI({ h3(df_illustrator[df$id == card_num]) })
+    
+    strangeTmp <- card_num %% 100
+    
+    #変なボタン精製
+    output$cardnumber <- renderUI({
+      tags$object(
+        id = "object",
+        class = "img",
+        tags$img(src = paste0("num_",strangeTmp,".jpg"),height = "30px",width = "30px")
+      )
+    })
+    
+    #変な名前精製
+    output$cardnameimage <- renderUI ({
+      tags$object(
+        id = "object",
+        class = "img",
+        tags$img(src = paste0("name_",strangeTmp,".jpg"),height = "50px",width = "150px")
+      )
+    })
+    
+    #画像生成
+    output$cardimage <- renderUI({
+      tags$object(
+        id = "object",
+        class = "img",
+        tags$img(src = paste0("cc_",card_num,".jpg"),height = "400px",width = "200px")
+      )
+    })
+    
+    output$slash_ui2 <- renderUI({
+      tags$div(class = "btn-container",
+               tags$div(class = "btn-slash"
+               )
+      )
+    })
+    
+    output$cardname <- renderUI({ h2(df_sentence2[df$id == card_num]) })
+    output$sentence <- renderUI({ h4(df_sentence3[df$id == card_num]) })
+    output$illust <- renderUI({ h2(paste0("Illustration & Text:  ",df_illustrator[df$id == card_num])) })
     output$tweet <- renderUI({ 
       tags$div(class = "btn-container",
                tags$button(
@@ -447,7 +473,7 @@ server <- function(input, output,session) {
   }
   #Backボタンが押された際にカードを裏返してStart画面へ
   observeEvent(input$Back_to_start_button, {
-    updateTabsetPanel( session, "tallot_tab",selected = paste0("panel_", 1) )
+    updateTabsetPanel( session, "tallot_tab",selected = "panel_1")
   })
   
   ##################  ミニゲーム画面   ########################
@@ -458,9 +484,8 @@ server <- function(input, output,session) {
     tags$button(
       id = text,
       class = "btn action-button",
-      tags$img(src = paste0("cc_","00",".jpg"),height = "200px",width = "100px"),
+      tags$img(src = "cc_00.jpg",height = "200px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
-      #tags$img(src = paste0("tallot_",00,".jpg"),height = "200px",width = "100px")
     )
   }
   
@@ -500,7 +525,6 @@ server <- function(input, output,session) {
       class = "btn action-button",
       tags$img(src = paste0("cc_", moto_data[x] ,".jpg"),height = "200px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
-      # tags$img(src = paste0("tallot_", num ,".png"),height = "200px",width = "100px")
     )
   }
   
@@ -556,7 +580,7 @@ server <- function(input, output,session) {
   reverseAllMini()
   
   ##################  ギャラリー画面   ########################
-
+  
   #ギャラリーを精製する関数
   makeGarraly <- function(x){
     text <- paste0("gallerys",x)
@@ -568,7 +592,6 @@ server <- function(input, output,session) {
   }
   
   makeGarraly2 <- function(x){output[[paste0("gallery",x)]] <- renderUI({makeGarraly(x)})}
-  
   lapply(0:21, function(x) makeGarraly2(x))
   
   #エクストラ
@@ -590,13 +613,13 @@ server <- function(input, output,session) {
   
   #Backボタンが押された際にStart画面へ
   observeEvent(input$Back_to_start_button2, {
-    updateTabsetPanel(session, "tallot_tab",selected = paste0("panel_",1))
+    updateTabsetPanel(session, "tallot_tab",selected = "panel_1")
   })
   
   ##################  スタッフ画面   ########################
   #Backボタンが押された際にStart画面へ
   observeEvent(input$Back_to_start_button3, {
-    updateTabsetPanel(session, "tallot_tab",selected = paste0("panel_",1))
+    updateTabsetPanel(session, "tallot_tab",selected = "panel_1")
   })
 }
 shinyApp(ui = ui, server = server)
