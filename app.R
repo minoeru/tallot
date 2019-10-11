@@ -28,6 +28,7 @@ maxmin <- data.frame(
 #カード指定の変数
 card_num <- 0
 check_tmp <- 0
+card_num2 <- 0
 
 ui <- fluidPage(
   tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css"),tags$script(src = "script.js")),
@@ -328,13 +329,30 @@ server <- function(input, output,session) {
     #グラフにプロット
     makeChart()
     #ams後に表のカード生成
+    # if(check_tmp == 1){
+    #   delay(3000, output$mainCard <- renderUI({
+    #   tags$div(class = "img-container",
+    #            tags$div(class = "reverse_card",
+    #                     tags$object(
+    #                       id = "object",
+    #                       class = "img reverse_card",
+    #                       tags$img(src = paste0("cc_",card_num2,".jpg"),height = "200px",width = "100px")
+    #                     )
+    #            )
+    #   )
+    #   })
+    # }
+    
+    
     delay(3000, output$mainCard <- renderUI({
       if(check_tmp == 1){
         tags$div(class = "img-container",
+                 tags$div(class = "reverse_card",
                  tags$object(
                    id = "object",
                    class = "img reverse_card",
-                   tags$img(src = paste0("cc_",card_num,".jpg"),height = "200px",width = "100px")
+                   tags$img(src = paste0("cc_",card_num2,".jpg"),height = "200px",width = "100px")
+                 )
                  )
         )
       }
@@ -343,7 +361,7 @@ server <- function(input, output,session) {
                  tags$object(
                    id = "object",
                    class = "img",
-                   tags$img(src = paste0("cc_",card_num,".jpg"),height = "200px",width = "100px")
+                   tags$img(src = paste0("cc_",card_num2,".jpg"),height = "200px",width = "100px")
                  )
         ) 
       }
@@ -375,9 +393,15 @@ server <- function(input, output,session) {
   makeRan <- function(){
     x <- floor(runif(1,0,22))
     dual <- sum( (df_id %% 100) - x == 0 )
-    if(dual %% 2 == 0) check_tmp <<- 1
-    ran <- floor(runif(1,0,dual/2))
-    card_num <<- x + 2 * ran * 100
+    ran <- floor(runif(1,0,dual))
+    card_num <<- x + ran * 100
+    if(ran %% 2 == 1) {
+      check_tmp <<- 1
+    }
+    card_num2 <<- x + floor(ran / 2) * 100
+    print(card_num)
+    print(ran)
+    print(check_tmp)
   }
   
   makeCards <- function(x){
@@ -426,17 +450,19 @@ server <- function(input, output,session) {
     #画像生成
     output$cardimage <- renderUI({
       if(check_tmp == 1){
+        tags$div(class = "reverse_card",
         tags$object(
           id = "object",
-          class = "img reverse_card",
-          tags$img(src = paste0("cc_",card_num,".jpg"),height = "400px",width = "200px")
+          class = "img reverse_img",
+          tags$img(src = paste0("cc_",card_num2,".jpg"),height = "400px",width = "200px")
+        )
         )
       }
       else{
         tags$object(
           id = "object",
           class = "img",
-          tags$img(src = paste0("cc_",card_num,".jpg"),height = "400px",width = "200px")
+          tags$img(src = paste0("cc_",card_num2,".jpg"),height = "400px",width = "200px")
         )
       }
 
