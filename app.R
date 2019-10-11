@@ -27,6 +27,7 @@ maxmin <- data.frame(
 )
 #カード指定の変数
 card_num <- 0
+check_tmp <- 0
 
 ui <- fluidPage(
   tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css"),tags$script(src = "script.js")),
@@ -328,13 +329,24 @@ server <- function(input, output,session) {
     makeChart()
     #ams後に表のカード生成
     delay(3000, output$mainCard <- renderUI({
-      tags$div(class = "img-container",
-               tags$object(
-                 id = "object",
-                 class = "img",
-                 tags$img(src = paste0("cc_",card_num,".jpg"),height = "200px",width = "100px")
-               )
-      )
+      if(check_tmp == 1){
+        tags$div(class = "img-container",
+                 tags$object(
+                   id = "object",
+                   class = "img reverse_card",
+                   tags$img(src = paste0("cc_",card_num,".jpg"),height = "200px",width = "100px")
+                 )
+        )
+      }
+      else{
+        tags$div(class = "img-container",
+                 tags$object(
+                   id = "object",
+                   class = "img",
+                   tags$img(src = paste0("cc_",card_num,".jpg"),height = "200px",width = "100px")
+                 )
+        ) 
+      }
     })
     )
     #bms後にページ遷移
@@ -342,11 +354,10 @@ server <- function(input, output,session) {
     #cms後にカード消滅ボタン復活
     delay(7000,allDelete())
   })
-  #カードの生成用変数
-  card_num <<- 0
   
   #カード消滅兼ボタン復活用関数
   allDelete <- function(){
+    check_tmp <<- 0
     card_num <<- 0
     output$mainCard <- renderUI({})
     output$put_button_ui <- renderUI({
@@ -362,19 +373,11 @@ server <- function(input, output,session) {
   
   #カード選択用乱数生成関数
   makeRan <- function(){
-    #全てのカードが出たら最後のカードから変更させない
-    if(sum(tallot_data_sets) <= -22){
-      card_num <<- 00
-      return()
-    }
     x <- floor(runif(1,0,22))
-    if(tallot_data_sets[x+1] != x) Recall()
-    else{
-      dual <- sum( (df_id %% 100) - x == 0 )
-      ran <- floor(runif(1,0,dual))
-      card_num <<- x + ran * 100
-      tallot_data_sets[x+1] <<- -1
-    }
+    dual <- sum( (df_id %% 100) - x == 0 )
+    if(dual %% 2 == 0) check_tmp <<- 1
+    ran <- floor(runif(1,0,dual/2))
+    card_num <<- x + 2 * ran * 100
   }
   
   makeCards <- function(x){
@@ -406,7 +409,7 @@ server <- function(input, output,session) {
                  axistype = 0,#ラベル表示無し
                  seg = 5,#分割数
                  plty = 16,#線の種類(丸ぽち無し)
-                 pcol="white",#線の色
+                 pcol="black",#線の色
                  plwd=2,　#ラインの太さ 
                  vlcex = 1,# ラベルの大きさ
                  pty=32,#データ点をプロットしない
@@ -415,39 +418,28 @@ server <- function(input, output,session) {
                  pdensity=0,　#塗りつぶす（斜線の）程度
                  pangle=180,　#塗りつぶす斜線の傾き
                  pfcol=7,　#塗りつぶす色
-                 cglcol="white",#軸の色
-                 # title = "Luck"
+                 cglcol="black",#軸の色
                  title = df_sentence[df$id == card_num]
       )
-    },bg="#a285b3")
+    },bg="transparent")
     
-    strangeTmp <- card_num %% 100
-    
-    # #変なボタン精製
-    # output$cardnumber <- renderUI({
-    #   tags$object(
-    #     id = "object",
-    #     class = "img",
-    #     tags$img(src = paste0("num_",strangeTmp,".jpg"),height = "30px",width = "30px")
-    #   )
-    # })
-    # 
-    # #変な名前精製
-    # output$cardnameimage <- renderUI ({
-    #   tags$object(
-    #     id = "object",
-    #     class = "img",
-    #     tags$img(src = paste0("name_",strangeTmp,".jpg"),height = "50px",width = "150px")
-    #   )
-    # })
-    # 
     #画像生成
     output$cardimage <- renderUI({
-      tags$object(
-        id = "object",
-        class = "img",
-        tags$img(src = paste0("cc_",card_num,".jpg"),height = "400px",width = "200px")
-      )
+      if(check_tmp == 1){
+        tags$object(
+          id = "object",
+          class = "img reverse_card",
+          tags$img(src = paste0("cc_",card_num,".jpg"),height = "400px",width = "200px")
+        )
+      }
+      else{
+        tags$object(
+          id = "object",
+          class = "img",
+          tags$img(src = paste0("cc_",card_num,".jpg"),height = "400px",width = "200px")
+        )
+      }
+
     })
     
     output$slash_ui2 <- renderUI({
