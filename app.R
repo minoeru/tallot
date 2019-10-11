@@ -61,8 +61,8 @@ ui <- fluidPage(
                        uiOutput("put_button_ui",align = "center")
               ),
               tabPanel(title = "Result",value = "panel_3",
-                       uiOutput("cardnumber",align = "center"),
-                       uiOutput("cardnameimage",align = "center"),
+                       # uiOutput("cardnumber",align = "center"),
+                       # uiOutput("cardnameimage",align = "center"),
                        uiOutput("cardimage",align = "center"),
                        uiOutput("cardname",align = "center"),
                        uiOutput("slash_ui2"),
@@ -423,24 +423,24 @@ server <- function(input, output,session) {
     
     strangeTmp <- card_num %% 100
     
-    #変なボタン精製
-    output$cardnumber <- renderUI({
-      tags$object(
-        id = "object",
-        class = "img",
-        tags$img(src = paste0("num_",strangeTmp,".jpg"),height = "30px",width = "30px")
-      )
-    })
-    
-    #変な名前精製
-    output$cardnameimage <- renderUI ({
-      tags$object(
-        id = "object",
-        class = "img",
-        tags$img(src = paste0("name_",strangeTmp,".jpg"),height = "50px",width = "150px")
-      )
-    })
-    
+    # #変なボタン精製
+    # output$cardnumber <- renderUI({
+    #   tags$object(
+    #     id = "object",
+    #     class = "img",
+    #     tags$img(src = paste0("num_",strangeTmp,".jpg"),height = "30px",width = "30px")
+    #   )
+    # })
+    # 
+    # #変な名前精製
+    # output$cardnameimage <- renderUI ({
+    #   tags$object(
+    #     id = "object",
+    #     class = "img",
+    #     tags$img(src = paste0("name_",strangeTmp,".jpg"),height = "50px",width = "150px")
+    #   )
+    # })
+    # 
     #画像生成
     output$cardimage <- renderUI({
       tags$object(
