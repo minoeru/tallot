@@ -409,7 +409,7 @@ server <- function(input, output,session) {
              tags$object(
                id = "object",
                class = "img",
-               tags$img(src = "cc_00.jpg",height = "200px",width = "100px")
+               tags$img(src = "MiswTarotBG.png",height = "175px",width = "100px")
              )
     )
   }
@@ -625,7 +625,7 @@ server <- function(input, output,session) {
     tags$object(
       id = "gallery00",
       class = "img",
-      tags$img(src = "cc_00.jpg",height = "200px",width = "100px")
+      tags$img(src = "MiswTarotBG.png",height = "175px",width = "100px")
     )
   })
   
