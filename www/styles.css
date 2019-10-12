@@ -17,7 +17,16 @@ h4{
  overflow: hidden;
 }
 
-.tab-content .tab-pane:nth-child(6){
+.tab-content .tab-pane:nth-child(2){
+ position: relative;
+ min-height: 100vh; 
+ max-width: 600px;
+ margin: 0 auto;
+ padding-bottom: 10px;
+ font-size: 0;
+}
+
+.tab-content .tab-pane:nth-child(3), .tab-content .tab-pane:nth-child(5), .tab-content .tab-pane:nth-child(6){
     max-width: 600px;
     margin: 5vw auto;
     padding-bottom: 10px;
@@ -54,13 +63,130 @@ h4{
   height: auto !important;
 }
 
-#credit img{
+#gallery>img{
   margin-top:10vh;
   margin-bottom: 3vh;
   max-width: 100% !important;
   height: auto !important;
 }
 
+#credit>img{
+  margin-top:10vh;
+  margin-bottom: 3vh;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+
+/*カードの配置*/
+.game-container{
+  height: 85vh;
+}
+
+.game-container #mob1{
+  position:absolute;
+  top: 40%; left: 62%;
+  transform: rotate(160deg);
+}
+
+.game-container #mob2{
+  position:absolute;
+  top: 35%; left: 14%;
+  transform: rotate(-30deg);
+}
+
+.game-container #mob3{
+  position:absolute;
+  top: 20%; left: 30%;
+  transform: rotate(-20deg);
+}
+
+.game-container #mob4{
+  position:absolute;
+  top: 55%; left: 24%;
+  transform: rotate(220deg);
+}
+
+.game-container #mob5{
+  position: absolute;
+  top: 55%; left: 45%;
+  transform: rotate(160deg);
+}
+
+.game-container #mob6{
+  position:absolute;
+  top: 20%; left: 13%;
+  transform: rotate(-25deg);
+}
+
+.game-container #mob7{
+  position:absolute;
+  top: 15%; left: 50%;
+  transform: rotate(10deg);
+}
+
+.game-container #mob8{
+  position:absolute;
+  top: 50%; left: 65%;
+  transform: rotate(110deg);
+}
+
+.game-container #mob9{
+  position:absolute;
+  top: 35%; left: 70%;
+  transform: rotate(250deg);
+}
+
+.game-container #mob10{
+  position:absolute;
+  top: 43%; left: 10%;
+  transform: rotate(70deg);
+}
+
+.game-container #mob11{
+  position:absolute;
+  top: 23%; left: 65%;
+  transform: rotate(20deg);
+}
+
+.game-container #mob12{
+  position:absolute;
+  top: 33%; left: 40%;
+  transform: rotate(40deg);
+}
+
+/*逆位置*/
+.reverse_img>img{
+  transform: rotate(180deg);
+}
+
+#cardimage{
+  margin: 50px;
+}
+
+/*レーダーチャートの階調反転*/
+#radarPlot{
+  filter: invert(100%);
+}
+
+#illust>h2{
+  font-size: 16px;
+  padding:20px;
+}
+
+/*garralyのページ*/
+.garraly-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.garraly-container img{
+  margin: 20px;
+}
+
+/*ボタン関連のcss*/
 .btn-container{
   text-align: center;
   position: relative;
@@ -79,6 +205,11 @@ h4{
   font-size: 16px;
   transition: .3s;
   z-index: 1;
+}
+
+#Tweet_button{
+  background: rgb(89,112,152);
+  border:solid 1px rgb(89,112,152);
 }
 
 .btn:hover{
@@ -110,18 +241,20 @@ h4{
   z-index: -1;
 }
 
+/*effect関連のcss*/
 .sizuku {
  animation: sizuku 1s linear 0s;
  border-radius: 50%;
  border: 3px solid white;
  position: absolute;
- z-index: 1000;
+ z-index: -1000;
 }
 
 .star {
  position: absolute;
  background: white;
  opacity: 0;
+ z-index: -1000;
  clip-path: polygon(50% 0, 62% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%, 43% 39%, 13% 39%, 37% 55%, 28% 81%, 50% 65%, 72% 81%, 63% 55%, 87% 39%, 59% 39%, 50% 10%, 43% 39%, 39% 35%);
  -webkit-clip-path: polygon(50% 0, 62% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%, 43% 39%, 13% 39%, 37% 55%, 28% 81%, 50% 65%, 72% 81%, 63% 55%, 87% 39%, 59% 39%, 50% 10%, 43% 39%, 39% 35%);
 }
