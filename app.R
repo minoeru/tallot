@@ -351,7 +351,7 @@ server <- function(input, output,session) {
                  tags$object(
                    id = "object",
                    class = "img reverse_card",
-                   tags$img(src = paste0("cc_",card_num2,".jpg"),height = "200px",width = "100px")
+                   tags$img(src = paste0("mt_",card_num2,".png"),height = "200px",width = "100px")
                  )
                  )
         )
@@ -361,7 +361,7 @@ server <- function(input, output,session) {
                  tags$object(
                    id = "object",
                    class = "img",
-                   tags$img(src = paste0("cc_",card_num2,".jpg"),height = "200px",width = "100px")
+                   tags$img(src = paste0("mt_",card_num2,".png"),height = "200px",width = "100px")
                  )
         ) 
       }
@@ -454,7 +454,7 @@ server <- function(input, output,session) {
         tags$object(
           id = "object",
           class = "img reverse_img",
-          tags$img(src = paste0("cc_",card_num2,".jpg"),height = "400px",width = "200px")
+          tags$img(src = paste0("mt_",card_num2,".png"),height = "400px",width = "200px")
         )
         )
       }
@@ -462,7 +462,7 @@ server <- function(input, output,session) {
         tags$object(
           id = "object",
           class = "img",
-          tags$img(src = paste0("cc_",card_num2,".jpg"),height = "400px",width = "200px")
+          tags$img(src = paste0("mt_",card_num2,".png"),height = "400px",width = "200px")
         )
       }
 
@@ -502,7 +502,7 @@ server <- function(input, output,session) {
     tags$button(
       id = text,
       class = "btn action-button",
-      tags$img(src = "cc_00.jpg",height = "200px",width = "100px"),
+      tags$img(src = "MiswTarotBG.png",height = "200px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
     )
   }
@@ -541,7 +541,7 @@ server <- function(input, output,session) {
     tags$button(
       id = text,
       class = "btn action-button",
-      tags$img(src = paste0("cc_", moto_data[x] ,".jpg"),height = "200px",width = "100px"),
+      tags$img(src = paste0("mt_", moto_data[x] ,".png"),height = "200px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
     )
   }
@@ -605,7 +605,7 @@ server <- function(input, output,session) {
     tags$object(
       id = text,
       class = "img",
-      tags$img(src = paste0("cc_",x,".jpg"),height = "200px",width = "100px")
+      tags$img(src = paste0("mt_",x,".png"),height = "200px",width = "100px")
     )
   }
   
