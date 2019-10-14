@@ -81,6 +81,7 @@ h4{
 /*カードの配置*/
 .game-container{
   height: 85vh;
+  min-height: 500px;
 }
 
 .game-container #mob1{
