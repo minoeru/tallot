@@ -1,5 +1,5 @@
-﻿id,para_a,para_b,para_c,para_d,para_e,sentence,sentence2,sentence3,illustrator
-0,100,100,100,100,100,The Fool(Upright),愚者(正位置),愚者のカード(正位置),藤汐
+id,para_a,para_b,para_c,para_d,para_e,sentence,sentence2,sentence3,illustrator
+0,20,36,55,84,95,The Fool(Upright),愚者(正位置),愚者のカード(正位置),ロジ
 1,73,100,10,56,77,The Magician(Upright),魔術師(正位置),魔術師のカード(正位置),やまろ
 2,84,90,87,77,64,The High Priestess(Upright),女教皇(正位置),女教皇のカード(正位置),サカモト
 3,55,30,50,100,16,The Empress(Upright),女帝(正位置),女帝のカード(正位置),aozam
@@ -21,7 +21,7 @@
 19,89,51,88,74,80,The Sun(Upright),太陽(正位置),太陽のカード(正位置),まつり
 20,90,90,90,90,90,Judgement(Upright),審判(正位置),審判のカード(正位置),Rim
 21,90,90,90,90,90,The World(Upright),世界(正位置),世界のカード(正位置),サ^n
-100,100,100,100,100,100,The Fool(Reversed),愚者(逆位置),愚者のカード(逆位置),藤汐
+100,90,90,90,90,90,The Fool(Reversed),愚者(逆位置),愚者のカード(逆位置),ロジ
 101,73,100,10,56,77,The Magician(Reversed),魔術師(逆位置),魔術師のカード(逆位置),やまろ
 102,84,90,87,77,64,The High Priestess(Reversed),女教皇(逆位置),女教皇のカード(逆位置),サカモト
 103,55,30,50,100,16,The Empress(Reversed),女帝(逆位置),女帝のカード(逆位置),aozam
@@ -55,5 +55,3 @@
 307,73,85,55,55,55,Justice(Reversed),戦車(逆位置),戦車のカード(逆位置),oknon
 313,57,93,66,58,76,Death(Reversed),死神(逆位置),死神のカード(逆位置),れしぃ
 320,83,40,70,67,84,Judgement(Reversed),審判(逆位置),審判のカード(逆位置),okanon
-400,20,36,55,84,95,The Fool(Upright),愚者(正位置),愚者のカード(正位置),ロジ
-500,90,90,90,90,90,The Fool(Reversed),愚者(逆位置),愚者のカード(逆位置),ロジ

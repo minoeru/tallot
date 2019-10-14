@@ -399,9 +399,6 @@ server <- function(input, output,session) {
       check_tmp <<- 1
     }
     card_num2 <<- x + floor(ran / 2) * 100
-    print(card_num)
-    print(ran)
-    print(check_tmp)
   }
   
   makeCards <- function(x){
