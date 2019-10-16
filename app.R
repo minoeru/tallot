@@ -69,7 +69,9 @@ ui <- fluidPage(
                        uiOutput("cardname",align = "center"),
                        uiOutput("slash_ui2"),
                        uiOutput("sentence",align = "center"),
-                       plotOutput("radarPlot"),
+                       tags$div(align="center",
+                       plotOutput("radarPlot")
+                       ),
                        uiOutput("illust",align = "center"),
                        uiOutput("tweet",align = "center"),
                        uiOutput("Back_to_start_button_ui",align = "center")
@@ -425,7 +427,8 @@ server <- function(input, output,session) {
     dat <- rbind(maxmin, dat) #データの結合
     VLabel <- c("General","Love","Money","Personal","work") #ラベルの名前
     #レーダーチャート作成
-    output$radarPlot <- renderPlot({
+    output$radarPlot <- renderPlot(
+      {
       radarchart(dat, 
                  axistype = 0,#ラベル表示無し
                  seg = 5,#分割数
@@ -442,7 +445,9 @@ server <- function(input, output,session) {
                  cglcol="black",#軸の色
                  title = df_sentence[df$id == card_num]
       )
-    },bg="transparent")
+    },bg="transparent"
+    # ,width=280
+    )
     
     #画像生成
     output$cardimage <- renderUI({
