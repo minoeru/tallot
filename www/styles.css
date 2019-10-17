@@ -157,7 +157,7 @@ h4{
 }
 
 /*逆位置*/
-.reverse_img>img{
+.reverse_img{
   transform: rotate(180deg);
 }
 
@@ -165,9 +165,17 @@ h4{
   margin: 50px;
 }
 
-/*レーダーチャートの階調反転*/
+.sentence>h4{
+  margin: 30px;
+}
+
+/*レーダーチャート*/
 #radarPlot{
   filter: invert(100%);
+}
+
+#radarPlot>img{
+  transform: translateX(-15px);
 }
 
 #illust>h2{
