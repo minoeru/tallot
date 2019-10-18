@@ -145,7 +145,7 @@ ui <- fluidPage(
                                 uiOutput("gallery20"),
                                 uiOutput("gallery220"),
                                 uiOutput("gallery21"),
-                                uiOutput("gallery00")
+                                uiOutput("gallery1000")
                        ),
                        uiOutput("Back_to_start_button_ui2",align = "center")
               ),
@@ -391,7 +391,7 @@ server <- function(input, output,session) {
              tags$object(
                id = "object",
                class = "img",
-               tags$img(src = "MiswTarotBG.png",height = "175px",width = "100px")
+               tags$img(src = "mt_1000.png",height = "175px",width = "100px")
              )
     )
   }
@@ -450,7 +450,6 @@ server <- function(input, output,session) {
           tags$img(src = paste0("mt_",card_num2,".png"),height = "400px",width = "200px")
         )
       }
-
     })
     
     output$slash_ui2 <- renderUI({
@@ -487,7 +486,7 @@ server <- function(input, output,session) {
     tags$button(
       id = text,
       class = "btn action-button",
-      tags$img(src = "MiswTarotBG.png",height = "200px",width = "100px"),
+      tags$img(src = "mt_1000.png",height = "200px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
     )
   }
@@ -584,18 +583,21 @@ server <- function(input, output,session) {
   
   ##################  ギャラリー画面   ########################
   
-  #ギャラリーを精製する関数
-  makeGarraly <- function(x){
-    text <- paste0("gallerys",x)
-    tags$object(
-      id = text,
-      class = "img",
-      tags$img(src = paste0("mt_",x,".png"),height = "175px",width = "100px")
-    )
-  }
-  
   makeGarraly2 <- function(x){output[[paste0("gallery",x)]] <- renderUI({makeGarraly(x)})}
   lapply(0:21, function(x) makeGarraly2(x))
+  
+  makeGarraly <- function(x){
+    hoge_number <- x
+    tags$div(
+      tags$button(
+        type = "button",
+        class="btn btn-primary",
+        "data-toggle" = "modal",
+        "data-target" = "#modal",
+        tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px")
+      )
+    )
+  }
   
   #エクストラ
   makeGarraly2(200)
@@ -603,15 +605,15 @@ server <- function(input, output,session) {
   makeGarraly2(203)
   makeGarraly2(213)
   makeGarraly2(220)
-  
-  #裏面
-  output$gallery00 <- renderUI({
-    tags$object(
-      id = "gallery00",
-      class = "img",
-      tags$img(src = "MiswTarotBG.png",height = "175px",width = "100px")
-    )
-  })
+  makeGarraly2(1000)
+  # #裏面
+  # output$gallery00 <- renderUI({
+  #   tags$object(
+  #     id = "gallery00",
+  #     class = "img",
+  #     tags$img(src = "mt_1000.png",height = "175px",width = "100px")
+  #   )
+  # })
   
   #Backボタンが押された際にStart画面へ
   observeEvent(input$Back_to_start_button2, {
