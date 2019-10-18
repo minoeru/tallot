@@ -129,7 +129,6 @@ ui <- fluidPage(
                                 uiOutput("gallery5"),
                                 uiOutput("gallery6"),
                                 uiOutput("gallery7"),
-                                uiOutput("gallery207"),
                                 uiOutput("gallery8"),
                                 uiOutput("gallery9"),
                                 uiOutput("gallery10"),
@@ -384,7 +383,7 @@ server <- function(input, output,session) {
     if(ran %% 2 == 1) {
       check_tmp <<- 1
     }
-    card_num2 <<- x + floor(ran / 2) * 100
+    card_num2 <<- x + floor(ran / 2) * 200
   }
   
   makeCards <- function(x){
@@ -602,7 +601,6 @@ server <- function(input, output,session) {
   makeGarraly2(200)
   makeGarraly2(202)
   makeGarraly2(203)
-  makeGarraly2(207)
   makeGarraly2(213)
   makeGarraly2(220)
   
