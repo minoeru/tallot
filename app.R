@@ -330,22 +330,6 @@ server <- function(input, output,session) {
     makeRan()
     #グラフにプロット
     makeChart()
-    #ams後に表のカード生成
-    # if(check_tmp == 1){
-    #   delay(3000, output$mainCard <- renderUI({
-    #   tags$div(class = "img-container",
-    #            tags$div(class = "reverse_card",
-    #                     tags$object(
-    #                       id = "object",
-    #                       class = "img reverse_card",
-    #                       tags$img(src = paste0("cc_",card_num2,".jpg"),height = "200px",width = "100px")
-    #                     )
-    #            )
-    #   )
-    #   })
-    # }
-    
-    
     delay(3000, output$mainCard <- renderUI({
       if(check_tmp == 1){
         tags$div(class = "img-container",
