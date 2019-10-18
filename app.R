@@ -353,7 +353,7 @@ server <- function(input, output,session) {
                  tags$object(
                    id = "object",
                    class = "img reverse_card",
-                   tags$img(src = paste0("mt_",card_num2,".png"),height = "200px",width = "100px")
+                   tags$img(src = paste0("mt_",card_num2,".png"),height = "175px",width = "100px")
                  )
                  )
         )
@@ -363,7 +363,7 @@ server <- function(input, output,session) {
                  tags$object(
                    id = "object",
                    class = "img",
-                   tags$img(src = paste0("mt_",card_num2,".png"),height = "200px",width = "100px")
+                   tags$img(src = paste0("mt_",card_num2,".png"),height = "175px",width = "100px")
                  )
         ) 
       }
@@ -543,7 +543,7 @@ server <- function(input, output,session) {
     tags$button(
       id = text,
       class = "btn action-button",
-      tags$img(src = paste0("mt_", moto_data[x] ,".png"),height = "200px",width = "100px"),
+      tags$img(src = paste0("mt_", moto_data[x] ,".png"),height = "175px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
     )
   }
@@ -607,7 +607,7 @@ server <- function(input, output,session) {
     tags$object(
       id = text,
       class = "img",
-      tags$img(src = paste0("mt_",x,".png"),height = "200px",width = "100px")
+      tags$img(src = paste0("mt_",x,".png"),height = "175px",width = "100px")
     )
   }
   

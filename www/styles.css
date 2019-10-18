@@ -157,7 +157,7 @@ h4{
 }
 
 /*逆位置*/
-.reverse_img{
+.reverse_img img{
   transform: rotate(180deg);
 }
 
@@ -165,7 +165,7 @@ h4{
   margin: 50px;
 }
 
-.sentence>h4{
+#sentence>h4{
   margin: 30px;
 }
 
@@ -191,8 +191,9 @@ h4{
   align-items: center;
 }
 
-.garraly-container img{
-  margin: 20px;
+.garraly-container>div{
+  margin: 30px;
+  box-shadow: 0 0 20px 10px rgba(31, 31, 31, 0.6);
 }
 
 /*ボタン関連のcss*/
