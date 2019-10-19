@@ -63,8 +63,6 @@ ui <- fluidPage(
                        uiOutput("put_button_ui",align = "center")
               ),
               tabPanel(title = "Result",value = "panel_3",
-                       # uiOutput("cardnumber",align = "center"),
-                       # uiOutput("cardnameimage",align = "center"),
                        uiOutput("cardimage",align = "center"),
                        uiOutput("cardname",align = "center"),
                        uiOutput("slash_ui2"),
@@ -606,14 +604,6 @@ server <- function(input, output,session) {
   makeGarraly2(213)
   makeGarraly2(220)
   makeGarraly2(1000)
-  # #裏面
-  # output$gallery00 <- renderUI({
-  #   tags$object(
-  #     id = "gallery00",
-  #     class = "img",
-  #     tags$img(src = "mt_1000.png",height = "175px",width = "100px")
-  #   )
-  # })
   
   #Backボタンが押された際にStart画面へ
   observeEvent(input$Back_to_start_button2, {
