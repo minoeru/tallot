@@ -1,5 +1,5 @@
 window.onload = function() {
-  //clic effect
+  //click effect
   document.body.addEventListener("click", drop, false);
   let title_scene_child = document.getElementById('title_ui');
   let title_scene = title_scene_child.parentNode;
@@ -34,13 +34,9 @@ window.onload = function() {
       }, false);
     }
   }
-  
-  //shuffle animation
-  setTimeout(function() {
-    document.getElementById('start_button').addEventListener("click",function(){
-    setTimeout(function(){
-      document.getElementById('put_button').addEventListener("click", shuffle, false);
-      function shuffle(e){
+};
+
+function shuffle(){
           for(let j=1; j<13; j++){
             let id_num = "mob" + j;
             let add_class_num = id_num + "_move"; 
@@ -50,7 +46,3 @@ window.onload = function() {
             },false);
           }
         }
-      },500);
-    },false);
-  },500);
-};

@@ -246,6 +246,7 @@ server <- function(input, output,session) {
              tags$button(
                id = "put_button",
                class = "btn action-button",
+               onclick = "shuffle()",
                "カードをめくる"
              )
     )
