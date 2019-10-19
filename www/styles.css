@@ -3,30 +3,32 @@ body {
     background: linear-gradient(180deg, rgba(77, 103, 132, 1) 0%, rgba(167, 135, 181, 1) 100%);
 }
 
-h2{
-  color: white;
+h2 {
+    color: white;
 }
 
-h4{
-  color: white;
+h4 {
+    color: white;
 }
 
-.tab-content .tab-pane:nth-child(1){
- position: relative;
- min-height: 100vh; 
- overflow: hidden;
+.tab-content .tab-pane:nth-child(1) {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
-.tab-content .tab-pane:nth-child(2){
- position: relative;
- min-height: 100vh; 
- max-width: 600px;
- margin: 0 auto;
- padding-bottom: 10px;
- font-size: 0;
+.tab-content .tab-pane:nth-child(2) {
+    position: relative;
+    min-height: 100vh;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    font-size: 0;
 }
 
-.tab-content .tab-pane:nth-child(3), .tab-content .tab-pane:nth-child(5), .tab-content .tab-pane:nth-child(6){
+.tab-content .tab-pane:nth-child(3),
+.tab-content .tab-pane:nth-child(5),
+.tab-content .tab-pane:nth-child(6) {
     max-width: 600px;
     margin: 5vw auto;
     padding-bottom: 10px;
@@ -34,263 +36,490 @@ h4{
     font-size: 0;
 }
 
-.tab-pane>h2{
-  margin: 40px 0 25px 0;
+.tab-pane > h2 {
+    margin: 40px 0 25px 0;
 }
 
-.tab-pane>h4{
-  display: inline-block;
-  width: 50%;
-  padding: 10px 0;
+.tab-pane > h4 {
+    display: inline-block;
+    width: 50%;
+    padding: 10px 0;
 }
 
-.tab-pane>h4:last-of-type{
-  width: 100%;
+.tab-pane > h4:last-of-type {
+    width: 100%;
 }
 
-#Back_to_start_button3{
-  margin: 50px 0;
+#Back_to_start_button3 {
+    margin: 50px 0;
 }
 
-.nav{
-  display: none;
+.nav {
+    display: none;
 }
 
-#title img{
-  margin-top: 30vh;
-  margin-bottom: 3vh;
-  max-width: 100% !important;
-  height: auto !important;
+#title img {
+    margin-top: 30vh;
+    margin-bottom: 3vh;
+    max-width: 100% !important;
+    height: auto !important;
 }
 
-#gallery>img{
-  margin-top:10vh;
-  margin-bottom: 3vh;
-  max-width: 100% !important;
-  height: auto !important;
+#gallery > img {
+    margin-top: 10vh;
+    margin-bottom: 3vh;
+    max-width: 100% !important;
+    height: auto !important;
 }
 
-#credit>img{
-  margin-top:10vh;
-  margin-bottom: 3vh;
-  max-width: 100% !important;
-  height: auto !important;
+#credit > img {
+    margin-top: 10vh;
+    margin-bottom: 3vh;
+    max-width: 100% !important;
+    height: auto !important;
 }
 
 
 /*カードの配置*/
-.game-container{
-  height: 85vh;
-  min-height: 500px;
+.game-container {
+    height: 85vh;
+    min-height: 500px;
 }
 
-.game-container #mob1{
-  position:absolute;
-  top: 40%; left: 62%;
-  transform: rotate(160deg);
+.game-container #mob1 {
+    position: absolute;
+    top: 40%;
+    left: 62%;
+    transform: rotate(160deg);
 }
 
-.game-container #mob2{
-  position:absolute;
-  top: 35%; left: 14%;
-  transform: rotate(-30deg);
+.game-container #mob2 {
+    position: absolute;
+    top: 35%;
+    left: 14%;
+    transform: rotate(-30deg);
 }
 
-.game-container #mob3{
-  position:absolute;
-  top: 20%; left: 30%;
-  transform: rotate(-20deg);
+.game-container #mob3 {
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    transform: rotate(-20deg);
 }
 
-.game-container #mob4{
-  position:absolute;
-  top: 55%; left: 24%;
-  transform: rotate(220deg);
+.game-container #mob4 {
+    position: absolute;
+    top: 55%;
+    left: 24%;
+    transform: rotate(220deg);
 }
 
-.game-container #mob5{
-  position: absolute;
-  top: 55%; left: 45%;
-  transform: rotate(160deg);
+.game-container #mob5 {
+    position: absolute;
+    top: 55%;
+    left: 45%;
+    transform: rotate(160deg);
 }
 
-.game-container #mob6{
-  position:absolute;
-  top: 20%; left: 13%;
-  transform: rotate(-25deg);
+.game-container #mob6 {
+    position: absolute;
+    top: 20%;
+    left: 13%;
+    transform: rotate(-25deg);
 }
 
-.game-container #mob7{
-  position:absolute;
-  top: 15%; left: 50%;
-  transform: rotate(10deg);
+.game-container #mob7 {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: rotate(10deg);
 }
 
-.game-container #mob8{
-  position:absolute;
-  top: 50%; left: 65%;
-  transform: rotate(110deg);
+.game-container #mob8 {
+    position: absolute;
+    top: 50%;
+    left: 65%;
+    transform: rotate(110deg);
 }
 
-.game-container #mob9{
-  position:absolute;
-  top: 35%; left: 70%;
-  transform: rotate(250deg);
+.game-container #mob9 {
+    position: absolute;
+    top: 35%;
+    left: 70%;
+    transform: rotate(250deg);
 }
 
-.game-container #mob10{
-  position:absolute;
-  top: 43%; left: 10%;
-  transform: rotate(70deg);
+.game-container #mob10 {
+    position: absolute;
+    top: 43%;
+    left: 10%;
+    transform: rotate(70deg);
 }
 
-.game-container #mob11{
-  position:absolute;
-  top: 23%; left: 65%;
-  transform: rotate(20deg);
+.game-container #mob11 {
+    position: absolute;
+    top: 23%;
+    left: 65%;
+    transform: rotate(20deg);
 }
 
-.game-container #mob12{
-  position:absolute;
-  top: 33%; left: 40%;
-  transform: rotate(40deg);
+.game-container #mob12 {
+    position: absolute;
+    top: 33%;
+    left: 40%;
+    transform: rotate(40deg);
 }
 
 /*逆位置*/
-.reverse_img img{
-  transform: rotate(180deg);
+.reverse_img img {
+    transform: rotate(180deg);
 }
 
-#cardimage{
-  margin: 50px;
+.reverse_card img {
+    transform: rotate(180deg);
 }
 
-#sentence>h4{
-  margin: 30px;
+#cardimage {
+    margin: 50px;
+}
+
+#sentence > h4 {
+    margin: 30px;
+    line-height: 24px;
 }
 
 /*レーダーチャート*/
-#radarPlot{
-  filter: invert(100%);
+#radarPlot {
+    filter: invert(100%);
 }
 
-#radarPlot>img{
-  transform: translateX(-15px);
+#radarPlot > img {
+    transform: translateX(-15px);
 }
 
-#illust>h2{
-  font-size: 16px;
-  padding:20px;
+#illust > h2 {
+    font-size: 16px;
+    padding: 20px;
 }
 
 /*garralyのページ*/
-.garraly-container{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+.garraly-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
-.garraly-container>div{
-  margin: 30px;
-  box-shadow: 0 0 20px 10px rgba(31, 31, 31, 0.6);
+.garraly-container > div {
+    margin: 30px;
+    box-shadow: 0 0 20px 10px rgba(31, 31, 31, 0.6);
 }
 
 /*ボタン関連のcss*/
-.btn-container{
-  text-align: center;
-  position: relative;
+.btn-container {
+    text-align: center;
+    position: relative;
 }
 
-.btn{
-  background: transparent;
-  border: solid 1px white;
-  color: white;
-  width: 280px;
-  height: 45px;
-  border-radius: 45px;
-  line-height: 30px;
-  letter-spacing: 1px;
-  margin: 2vh;
-  font-size: 16px;
-  transition: .3s;
-  z-index: 1;
+.btn {
+    background: transparent;
+    border: solid 1px white;
+    color: white;
+    width: 280px;
+    height: 45px;
+    border-radius: 45px;
+    line-height: 30px;
+    letter-spacing: 1px;
+    margin: 2vh;
+    font-size: 16px;
+    transition: .3s;
+    z-index: 1;
 }
 
-#Tweet_button{
-  background: rgb(89,112,152);
-  border:solid 1px rgb(89,112,152);
+.garraly-container .btn{
+  border: none;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
 }
 
-.btn:hover{
-  transform: scale(1.1);
-  color: white;
+#Tweet_button {
+    background: rgb(89, 112, 152);
+    border: solid 1px rgb(89, 112, 152);
 }
 
-.start-btn-container button:hover{
-  transform: scale(1);
-  background: white;
-  color: rgba(77, 103, 132, 1);
+.btn:hover {
+    transform: scale(1.1);
+    color: white;
 }
 
-.btn-slash{
-  background: white;
-  height: 8vh;
-  width: 1px;
-  margin: 2vh auto;
+.start-btn-container button:hover {
+    transform: scale(1);
+    background: white;
+    color: rgba(77, 103, 132, 1);
 }
 
-.start-btn-container::after{
-  content: "";
-  position:absolute;
-  top: calc(2vh - 5px); left: calc(50vw - 160px);
-  border: solid 1px white;
-  width: 290px;
-  border-radius: 45px;
-  height: 55px;
-  z-index: -1;
+.btn-slash {
+    background: white;
+    height: 8vh;
+    width: 1px;
+    margin: 2vh auto;
+}
+
+.start-btn-container::after {
+    content: "";
+    position: absolute;
+    top: calc(2vh - 5px);
+    left: calc(50vw - 160px);
+    border: solid 1px white;
+    width: 290px;
+    border-radius: 45px;
+    height: 55px;
+    z-index: -1;
 }
 
 /*effect関連のcss*/
 .sizuku {
- animation: sizuku 1s linear 0s;
- border-radius: 50%;
- border: 3px solid white;
- position: absolute;
- z-index: -1000;
+    animation: sizuku 1s linear 0s;
+    border-radius: 50%;
+    border: 3px solid white;
+    position: absolute;
+    z-index: -1000;
 }
 
 .star {
- position: absolute;
- background: white;
- opacity: 0;
- z-index: -1000;
- clip-path: polygon(50% 0, 62% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%, 43% 39%, 13% 39%, 37% 55%, 28% 81%, 50% 65%, 72% 81%, 63% 55%, 87% 39%, 59% 39%, 50% 10%, 43% 39%, 39% 35%);
- -webkit-clip-path: polygon(50% 0, 62% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%, 43% 39%, 13% 39%, 37% 55%, 28% 81%, 50% 65%, 72% 81%, 63% 55%, 87% 39%, 59% 39%, 50% 10%, 43% 39%, 39% 35%);
+    position: absolute;
+    background: white;
+    opacity: 0;
+    z-index: -1000;
+    clip-path: polygon(50% 0, 62% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%, 43% 39%, 13% 39%, 37% 55%, 28% 81%, 50% 65%, 72% 81%, 63% 55%, 87% 39%, 59% 39%, 50% 10%, 43% 39%, 39% 35%);
+    -webkit-clip-path: polygon(50% 0, 62% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%, 43% 39%, 13% 39%, 37% 55%, 28% 81%, 50% 65%, 72% 81%, 63% 55%, 87% 39%, 59% 39%, 50% 10%, 43% 39%, 39% 35%);
+}
+
+.mob1_move{
+    animation: shuffle1 5s ease 0s forwards;
+}
+
+.mob2_move{
+    animation: shuffle2 5s ease 0s forwards;
+}
+
+.mob3_move{
+    animation: shuffle3 5s ease 0s forwards;
+}
+
+.mob4_move{
+    animation: shuffle4 5s ease 0s forwards;
+}
+
+.mob5_move{
+    animation: shuffle5 5s ease 0s forwards;
+}
+
+.mob6_move{
+    animation: shuffle6 5s ease 0s forwards;
+}
+
+.mob7_move{
+    animation: shuffle7 5s ease 0s forwards;
+}
+
+.mob8_move{
+    animation: shuffle8 5s ease 0s forwards;
+}
+
+.mob9_move{
+    animation: shuffle9 5s ease 0s forwards;
+}
+
+.mob10_move{
+    animation: shuffle10 5s ease 0s forwards;
+}
+
+.mob11_move{
+    animation: shuffle11 5s ease 0s forwards;
+}
+
+.mob12_move{
+    animation: shuffle12 5s ease 0s forwards;
 }
 
 @keyframes sizuku {
- 0% {
-   height: 0;
-   opacity: 1;
-   transform: translate(0, 0);
-   width: 0;.
-}
-100% {
-   height: 400px;
-   width: 400px;
-   opacity: 0;
-   transform: translate(-200px, -200px);
-   border-width: 0px;
- }
+    0% {
+        height: 0;
+        opacity: 1;
+        transform: translate(0, 0);
+        width: 0;
+    }
+
+    100% {
+        height: 400px;
+        width: 400px;
+        opacity: 0;
+        transform: translate(-200px, -200px);
+        border-width: 0px;
+    }
 }
 
 @keyframes star {
- 0% {
-    opacity: 1;
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(0, -100px) rotate(80deg) scale(.5);
+        opacity: 0;
+    }
 }
-100% {
-    transform: translate(0, -100px) rotate(80deg) scale(.5);
-    opacity: 0;
+
+@keyframes shuffle1{
+  60%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-100%) rotate(0deg);
+  }
+  100%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-100%) rotate(0deg);
+  }
+}
+
+@keyframes shuffle2{
+  60%{
+    top: 50%;
+    left: 50%;
+    transform: translate(0%,-90%) rotate(30deg);
+  }
+  100%{
+    top: 50%;
+    left: 50%;
+    transform: translate(0%,-90%) rotate(30deg);
+  }
+}
+
+@keyframes shuffle3{
+  60%{
+    top: 50%;
+    left: 50%;
+    transform: translate(30%,-80%) rotate(60deg);
+  }
+  100%{
+    top: 50%;
+    left: 50%;
+    transform: translate(30%,-80%) rotate(60deg);
+  }
+}
+
+@keyframes shuffle4{
+  60%{
+    top: 50%;
+    left: 50%;
+    transform: translate(50%,-50%) rotate(90deg);
+  }
+  100%{
+    top: 50%;
+    left: 50%;
+    transform: translate(50%,-50%) rotate(90deg);
+  }
+}
+
+@keyframes shuffle5{
+  100%{
+    top: 50%;
+    left: 50%;
+    transform: translate(30%,-24%) rotate(120deg);
+  }
+}
+
+@keyframes shuffle6{
+  60%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-2%,-7%) rotate(150deg);
+  }
+  100%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-2%,-7%) rotate(150deg);
+  }
+}
+
+@keyframes shuffle7{
+  60%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,0%) rotate(180deg);
+  }
+  100%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,0%) rotate(180deg);
+  }
+}
+
+@keyframes shuffle8{
+  60%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-90%,-8%) rotate(210deg);
+  }
+  100%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-90%,-8%) rotate(210deg);
+  }
+}
+
+@keyframes shuffle9{
+  60%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-135%,-30%) rotate(240deg);
+  }
+  100%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-135%,-30%) rotate(240deg);
+  }
+}
+
+@keyframes shuffle10{
+  60%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-150%,-50%) rotate(270deg);
+  }
+  100%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-150%,-50%) rotate(270deg);
+  }
+}
+
+@keyframes shuffle11{
+  60%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-140%,-75%) rotate(300deg);
+  }
+  100%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-140%,-75%) rotate(300deg);
+  }
+}
+
+@keyframes shuffle12{
+  60%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-100%,-95%) rotate(330deg);
+  }
+  100%{
+    top: 50%;
+    left: 50%;
+    transform: translate(-100%,-95%) rotate(330deg);
   }
 }
