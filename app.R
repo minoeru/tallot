@@ -58,7 +58,8 @@ ui <- fluidPage(
                                 uiOutput("mob9"),
                                 uiOutput("mob10"),
                                 uiOutput("mob11"),
-                                uiOutput("mob12")
+                                uiOutput("mob12"),
+                                uiOutput("mob13")
                        ),
                        uiOutput("put_button_ui",align = "center")
               ),
@@ -316,7 +317,7 @@ server <- function(input, output,session) {
   ##################  ゲーム画面   ########################
   
   #裏面カード生成
-  lapply(1:12, function(x) {
+  lapply(1:13, function(x) {
     output[[paste0("mob",x)]] <- renderUI({makeCards(x)})
   })
   
