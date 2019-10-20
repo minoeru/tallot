@@ -11,6 +11,11 @@ h4 {
     color: white;
 }
 
+h5{
+  font-size: 24px;
+  color: white;
+}
+
 .tab-content .tab-pane:nth-child(1) {
     position: relative;
     min-height: 100vh;
@@ -183,6 +188,10 @@ h4 {
     margin: 50px;
 }
 
+#cardimage img{
+  box-shadow: 0 0 20px 10px rgba(31, 31, 31, 0.6);
+}
+
 #sentence > h4 {
     margin: 30px;
     line-height: 24px;
@@ -215,6 +224,29 @@ h4 {
     box-shadow: 0 0 20px 10px rgba(31, 31, 31, 0.6);
 }
 
+/*modal*/
+.modal-dialog{
+  margin: 10vh auto;
+}
+
+.modal-content{
+  background: #333;
+  text-align: center;
+  max-width: 85vw;
+  margin: 0 auto;
+}
+
+.modal-header{
+  background: #333;
+  text-align: center;
+  border-bottom: solid 1px gray;
+}
+
+.modal-body>img{
+  height: 60vh;
+  width: auto;
+}
+
 /*ボタン関連のcss*/
 .btn-container {
     text-align: center;
@@ -238,6 +270,7 @@ h4 {
 
 .garraly-container .btn{
   border: none;
+  border-radius: 0;
   width: auto;
   height: auto;
   padding: 0;

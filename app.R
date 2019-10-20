@@ -352,7 +352,7 @@ server <- function(input, output,session) {
     })
     )
     #bms後にページ遷移
-    delay(6000, updateTabsetPanel( session, "tallot_tab",selected = "panel_3"))
+    delay(4800, updateTabsetPanel( session, "tallot_tab",selected = "panel_3"))
     #cms後にカード消滅ボタン復活
     delay(7000,allDelete())
   })
@@ -438,7 +438,7 @@ server <- function(input, output,session) {
         tags$object(
           id = "object",
           class = "img reverse_img",
-          tags$img(src = paste0("mt_",card_num2,".png"),height = "400px",width = "200px")
+          tags$img(src = paste0("mt_",card_num2,".png"),height = "350px",width = "200px")
         )
         )
       }
@@ -446,7 +446,7 @@ server <- function(input, output,session) {
         tags$object(
           id = "object",
           class = "img",
-          tags$img(src = paste0("mt_",card_num2,".png"),height = "400px",width = "200px")
+          tags$img(src = paste0("mt_",card_num2,".png"),height = "350px",width = "200px")
         )
       }
     })
