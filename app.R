@@ -592,8 +592,31 @@ server <- function(input, output,session) {
         type = "button",
         class="btn btn-primary",
         "data-toggle" = "modal",
-        "data-target" = "#modal",
+        "data-target" = paste0("#modal",hoge_number),
         tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px")
+      ),
+      tags$div(
+        class = "modal fade",
+        id = paste0("modal",hoge_number),
+        tabindex = "-1",
+        role = "dialog",
+        "aria-labelledby" = "label1",
+        "aria-hidden" = "true",
+        tags$div(
+          class = "modal-dialog modal-dialog-centered",
+          role = "document",
+          tags$div(
+            class = "modal-content",
+            tags$div(
+              class = "modal-header",
+              h5(class = "modal-title",id="label1",paste0(hoge_number %% 100,strsplit(df_sentence2[df$id == hoge_number],"\\(")[[1]][1]))
+            ),
+            tags$div(
+              class = "modal-body",
+              tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px")
+            )
+          )
+        )
       )
     )
   }
@@ -604,7 +627,46 @@ server <- function(input, output,session) {
   makeGarraly2(203)
   makeGarraly2(213)
   makeGarraly2(220)
-  makeGarraly2(1000)
+  
+  makeGarraly3 <- function(x){
+    hoge_number <- x
+    tags$div(
+      tags$button(
+        type = "button",
+        class="btn btn-primary",
+        "data-toggle" = "modal",
+        "data-target" = paste0("#modal",hoge_number),
+        tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px")
+      ),
+      tags$div(
+        class = "modal fade",
+        id = paste0("modal",hoge_number),
+        tabindex = "-1",
+        role = "dialog",
+        "aria-labelledby" = "label1",
+        "aria-hidden" = "true",
+        tags$div(
+          class = "modal-dialog modal-dialog-centered",
+          role = "document",
+          tags$div(
+            class = "modal-content",
+            tags$div(
+              class = "modal-header",
+              h5(class = "modal-title",id="label1","裏面")
+            ),
+            tags$div(
+              class = "modal-body",
+              tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px")
+            )
+          )
+        )
+      )
+    )
+  }
+  
+  makeGarraly4 <- function(x){output[[paste0("gallery",x)]] <- renderUI({makeGarraly3(x)})}
+  
+  makeGarraly4(1000)
   
   #Backボタンが押された際にStart画面へ
   observeEvent(input$Back_to_start_button2, {
