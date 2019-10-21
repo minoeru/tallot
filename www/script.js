@@ -37,7 +37,7 @@ window.onload = function() {
 };
 
 function shuffle(){
-          for(let j=1; j<13; j++){
+          for(let j=1; j<14; j++){
             let id_num = "mob" + j;
             let add_class_num = id_num + "_move"; 
             document.getElementById(id_num).classList.add(add_class_num);
@@ -45,4 +45,8 @@ function shuffle(){
               document.getElementById(id_num).classList.remove(add_class_num);
             },false);
           }
+          document.getElementById('mainCard').classList.add('mainCard_move');
+          document.getElementById('mainCard').addEventListener("animationend",function(){
+              document.getElementById('mainCard').classList.remove('mainCard_move');
+            },false);
         }

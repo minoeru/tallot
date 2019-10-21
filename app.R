@@ -353,7 +353,7 @@ server <- function(input, output,session) {
     })
     )
     #bms後にページ遷移
-    delay(4800, updateTabsetPanel( session, "tallot_tab",selected = "panel_3"))
+    delay(5001, updateTabsetPanel( session, "tallot_tab",selected = "panel_3"))
     #cms後にカード消滅ボタン復活
     delay(7000,allDelete())
   })
@@ -368,6 +368,7 @@ server <- function(input, output,session) {
                tags$button(
                  id = "put_button",
                  class = "btn action-button",
+                 onclick ="shuffle()",
                  "カードをめくる"
                )
       )
