@@ -46,7 +46,6 @@ ui <- fluidPage(
               ),
               tabPanel(title = "Game",value = "panel_2",
                        tags$div(class="game-container",
-                                uiOutput("mainCard"),
                                 uiOutput("mob1"),
                                 uiOutput("mob2"),
                                 uiOutput("mob3"),
@@ -59,7 +58,8 @@ ui <- fluidPage(
                                 uiOutput("mob10"),
                                 uiOutput("mob11"),
                                 uiOutput("mob12"),
-                                uiOutput("mob13")
+                                uiOutput("mob13"),
+                                uiOutput("mainCard")
                        ),
                        uiOutput("put_button_ui",align = "center")
               ),

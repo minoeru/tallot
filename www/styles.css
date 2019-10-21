@@ -180,13 +180,14 @@ h5 {
     top: 25%;
     left: 37%;
     transform: rotate(-50deg);
+    backface-visibility:hidden;
 }
 
 .game-container #mainCard {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotateY(-90deg);
+    top: calc(50% - 87.5px);
+    left: calc(50% - 50px);
+    transform: rotateY(-90deg);
     z-index: 1;
 }
 
@@ -651,8 +652,8 @@ h5 {
 
 @keyframes shuffle12 {
     40% {
-        top: 45%;
-        left: 75%;
+        top: 30%;
+        left: 25%;
         transform: translate(10%, 30%) rotate(110deg);
     }
 
@@ -702,14 +703,14 @@ h5 {
 
 @keyframes Card_rotate {
     75% {
-        transform: translate(-50%, -50%) rotateY(-90deg);
+        transform: rotateY(-90deg);
     }
 
     80% {
-        transform: translate(-50%, -50%) rotateY(0deg);
+        transform: rotateY(0deg);
     }
 
     100% {
-        transform: translate(-50%, -50%) rotateY(0deg);
+        transform: rotateY(0deg);
     }
 }
