@@ -336,7 +336,7 @@ server <- function(input, output,session) {
                  tags$object(
                    id = "object",
                    class = "img reverse_card",
-                   tags$img(src = paste0("mt_",card_num2,".png"),height = "175px",width = "100px")
+                   tags$img(src = paste0("mtm_",card_num2,".png"),height = "175px",width = "100px")
                  )
                  )
         )
@@ -346,7 +346,7 @@ server <- function(input, output,session) {
                  tags$object(
                    id = "object",
                    class = "img",
-                   tags$img(src = paste0("mt_",card_num2,".png"),height = "175px",width = "100px")
+                   tags$img(src = paste0("mtm_",card_num2,".png"),height = "175px",width = "100px")
                  )
         ) 
       }
@@ -595,7 +595,7 @@ server <- function(input, output,session) {
         class="btn btn-primary",
         "data-toggle" = "modal",
         "data-target" = paste0("#modal",hoge_number),
-        tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px")
+        tags$img(src = paste0("mtm_",hoge_number,".png"),height = "175px",width = "100px")
       ),
       tags$div(
         class = "modal fade",
