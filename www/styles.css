@@ -89,6 +89,7 @@ h5 {
 .game-container {
     height: 85vh;
     min-height: 500px;
+    overflow: hidden;
 }
 
 .game-container #mob1 {
@@ -180,6 +181,7 @@ h5 {
     top: 25%;
     left: 37%;
     transform: rotate(-50deg);
+    backface-visibility:hidden;
     backface-visibility:hidden;
 }
 
@@ -497,7 +499,7 @@ h5 {
         transform: translate(0%, 50%) rotate(150deg);
     }
 
-    60% {
+    55% {
         top: 50%;
         left: 50%;
         transform: translate(50%, -50%) rotate(90deg);
@@ -573,7 +575,7 @@ h5 {
 @keyframes shuffle8 {
     30% {
         top: 40%;
-        left: 65%;
+        left: 60%;
         transform: translate(30%, 40%) rotate(60deg);
     }
 
@@ -672,8 +674,8 @@ h5 {
 
 @keyframes shuffle13 {
     40% {
-        top: 25%;
-        left: 25%;
+        top: 20%;
+        left: 20%;
         transform: translate(10%, 30%) rotate(90deg);
     }
     60% {
@@ -682,13 +684,13 @@ h5 {
         transform: translate(-50%, -50%) rotate(0deg);
     }
 
-    75% {
+    70% {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) rotate(0deg) rotateY(-90deg);
     }
 
-    80% {
+    75% {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) rotate(0deg) rotateY(-90deg);
@@ -702,11 +704,11 @@ h5 {
 }
 
 @keyframes Card_rotate {
-    75% {
+    70% {
         transform: rotateY(-90deg);
     }
 
-    80% {
+    75% {
         transform: rotateY(0deg);
     }
 
