@@ -5,8 +5,8 @@ account: minoeru
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1098294
-bundleId: 2522709
+bundleId: 2527229
 url: https://minoeru.shinyapps.io/tallot/
-when: 1571697413.17209
+when: 1571788193.55285
 asMultiple: FALSE
 asStatic: FALSE
