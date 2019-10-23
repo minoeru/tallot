@@ -1,0 +1,12 @@
+name: tarot
+title: tarot
+username:
+account: minoeru
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1367735
+bundleId: 2527656
+url: https://minoeru.shinyapps.io/tarot/
+when: 1571800776.76161
+asMultiple: FALSE
+asStatic: FALSE

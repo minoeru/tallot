@@ -69,7 +69,7 @@ ui <- fluidPage(
                        uiOutput("slash_ui2"),
                        uiOutput("sentence",align = "center"),
                        tags$div(align="center",
-                       plotOutput("radarPlot")
+                                plotOutput("radarPlot")
                        ),
                        uiOutput("illust",align = "center"),
                        uiOutput("tweet",align = "center"),
@@ -333,11 +333,11 @@ server <- function(input, output,session) {
       if(check_tmp == 1){
         tags$div(class = "img-container",
                  tags$div(class = "reverse_card",
-                 tags$object(
-                   id = "object",
-                   class = "img reverse_card",
-                   tags$img(src = paste0("mtm_",card_num2,".png"),height = "175px",width = "100px")
-                 )
+                          tags$object(
+                            id = "object",
+                            class = "img reverse_card",
+                            tags$img(src = paste0("mtm_",card_num2,".png"),height = "175px",width = "100px")
+                          )
                  )
         )
       }
@@ -361,7 +361,7 @@ server <- function(input, output,session) {
   #カード消滅兼ボタン復活用関数
   allDelete <- function(){
     check_tmp <<- 0
-    card_num <<- 0
+    # card_num <<- 0
     output$mainCard <- renderUI({})
     output$put_button_ui <- renderUI({
       tags$div(class = "btn-container",
@@ -413,35 +413,35 @@ server <- function(input, output,session) {
     #レーダーチャート作成
     output$radarPlot <- renderPlot(
       {
-      radarchart(dat, 
-                 axistype = 0,#ラベル表示無し
-                 seg = 5,#分割数
-                 plty = 16,#線の種類(丸ぽち無し)
-                 pcol="black",#線の色
-                 plwd=2,　#ラインの太さ 
-                 vlcex = 1,# ラベルの大きさ
-                 pty=32,#データ点をプロットしない
-                 centerzero = TRUE,#ゼロ真ん中
-                 vlabels = VLabel,#ラベルの名前
-                 pdensity=0,　#塗りつぶす（斜線の）程度
-                 pangle=180,　#塗りつぶす斜線の傾き
-                 pfcol=7,　#塗りつぶす色
-                 cglcol="black",#軸の色
-                 title = df_sentence[df$id == card_num]
-      )
-    },bg="transparent"
-    # ,width=280
+        radarchart(dat, 
+                   axistype = 0,#ラベル表示無し
+                   seg = 5,#分割数
+                   plty = 16,#線の種類(丸ぽち無し)
+                   pcol="black",#線の色
+                   plwd=2,　#ラインの太さ 
+                   vlcex = 1,# ラベルの大きさ
+                   pty=32,#データ点をプロットしない
+                   centerzero = TRUE,#ゼロ真ん中
+                   vlabels = VLabel,#ラベルの名前
+                   pdensity=0,　#塗りつぶす（斜線の）程度
+                   pangle=180,　#塗りつぶす斜線の傾き
+                   pfcol=7,　#塗りつぶす色
+                   cglcol="black",#軸の色
+                   title = df_sentence[df$id == card_num]
+        )
+      },bg="transparent"
+      # ,width=280
     )
     
     #画像生成
     output$cardimage <- renderUI({
       if(check_tmp == 1){
         tags$div(class = "reverse_card",
-        tags$object(
-          id = "object",
-          class = "img reverse_img",
-          tags$img(src = paste0("mt_",card_num2,".png"),height = "350px",width = "200px")
-        )
+                 tags$object(
+                   id = "object",
+                   class = "img reverse_img",
+                   tags$img(src = paste0("mt_",card_num2,".png"),height = "350px",width = "200px")
+                 )
         )
       }
       else{
@@ -464,7 +464,7 @@ server <- function(input, output,session) {
     output$sentence <- renderUI({ h4(df_sentence3[df$id == card_num]) })
     output$illust <- renderUI({ h2(paste0("Illustration & Text:  ",df_illustrator[df$id == card_num])) })
     output$tweet <- renderUI({ 
-      hoge_tweet <<- paste0("https://twitter.com/share?url=https://minoeru.shinyapps.io/tallot/&text=",df_sentence2[df$id == card_num] ,"%20%23mis_tallot%20")
+      hoge_tweet <<- paste0("https://twitter.com/share?url=https://minoeru.shinyapps.io/tarot/&text=",df_sentence2[df$id == card_num] ,"%0a%20%23mis_tarot%20")
       tags$div(class = "btn-container",
                tags$button(
                  id = "Tweet_button",
