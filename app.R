@@ -398,7 +398,7 @@ server <- function(input, output,session) {
              tags$object(
                id = "object",
                class = "img",
-               tags$img(src = "mt_1000.png",height = "175px",width = "100px")
+               tags$img(src = "mtm_1000.png",height = "175px",width = "100px")
              )
     )
   }
@@ -470,12 +470,13 @@ server <- function(input, output,session) {
     output$sentence <- renderUI({ h4(df_sentence3[df$id == card_num]) })
     output$illust <- renderUI({ h2(paste0("Illustration & Text:  ",df_illustrator[df$id == card_num])) })
     output$tweet <- renderUI({ 
+      hoge_tweet <<- paste0("https://twitter.com/share?url=https://minoeru.shinyapps.io/tallot/&text=",df_sentence2[df$id == card_num] ,"%20%23mis_tallot%20")
       tags$div(class = "btn-container",
                tags$button(
                  id = "Tweet_button",
                  class = "btn action-button",
                  "結果をツイートする",
-                 onclick = "window.open('https://twitter.com/compose/tweet', '_blank')"
+                 onclick = paste0( "window.open('", hoge_tweet ,"','_blank')" )
                )
       )
     })
@@ -621,7 +622,8 @@ server <- function(input, output,session) {
             ),
             tags$div(
               class = "modal-body",
-              tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px")
+              tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px"),
+              h5(class = "modal-illust",paste0("Illustration by ",df_illustrator[df$id == hoge_number]))
             )
           )
         )
@@ -664,7 +666,8 @@ server <- function(input, output,session) {
             ),
             tags$div(
               class = "modal-body",
-              tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px")
+              tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px"),
+              h5(class = "modal-illust",paste0("Illustration by oknon"))
             )
           )
         )
