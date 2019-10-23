@@ -596,7 +596,7 @@ server <- function(input, output,session) {
   
   makeGarraly <- function(x){
     hoge_number <- x
-    tags$div(
+    tags$div(class = "modal-hover",
       tags$button(
         type = "button",
         class="btn btn-primary",
