@@ -392,7 +392,7 @@ server <- function(input, output,session) {
              tags$object(
                id = "object",
                class = "img",
-               tags$img(src = "mt_1000.png",height = "175px",width = "100px")
+               tags$img(src = "mtm_1000.png",height = "175px",width = "100px")
              )
     )
   }
@@ -612,7 +612,7 @@ server <- function(input, output,session) {
             class = "modal-content",
             tags$div(
               class = "modal-header",
-              h5(class = "modal-title",id="label1",paste0(hoge_number %% 100,strsplit(df_sentence2[df$id == hoge_number],"\\(")[[1]][1]))
+              h5(class = "modal-title",id="label1",paste0(hoge_number %% 100," ",strsplit(df_sentence2[df$id == hoge_number],"\\(")[[1]][1]))
             ),
             tags$div(
               class = "modal-body",

@@ -5,8 +5,8 @@ account: minoeru
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1367735
-bundleId: 2527724
+bundleId: 2528025
 url: https://minoeru.shinyapps.io/tarot/
-when: 1571802691.09527
+when: 1571811093.17541
 asMultiple: FALSE
 asStatic: FALSE
