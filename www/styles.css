@@ -181,8 +181,8 @@ h5 {
     top: 25%;
     left: 37%;
     transform: rotate(-50deg);
-    backface-visibility:hidden;
-    backface-visibility:hidden;
+    backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .game-container #mainCard {
@@ -204,6 +204,7 @@ h5 {
 
 #cardimage {
     margin: 50px;
+    opacity: 0;
 }
 
 #cardimage img {
@@ -239,8 +240,14 @@ h5 {
 
 .garraly-container > div {
     margin: 30px;
-    box-shadow: 0 0 20px 10px rgba(31, 31, 31, 0.6);
+    box-shadow: 0 0 10px 5px rgba(31, 31, 31, 0.6);
+    transition: .5s;
 }
+
+.garraly-container>div:hover {
+   transform: scale(1.1);
+}
+
 
 /*modal*/
 .modal-dialog {
@@ -305,6 +312,10 @@ h5 {
     color: white;
 }
 
+.garraly-container button:hover{
+    transform: scale(1);
+}
+
 .start-btn-container button:hover {
     transform: scale(1);
     background: white;
@@ -322,7 +333,7 @@ h5 {
     content: "";
     position: absolute;
     top: calc(2vh - 5px);
-    left: calc(50vw - 160px);
+    left: calc(50% - 145px);
     border: solid 1px white;
     width: 290px;
     border-radius: 45px;
@@ -331,6 +342,10 @@ h5 {
 }
 
 /*effect関連のcss*/
+.fade_in{
+  animation: fadeIn 2s ease 1s forwards;
+}
+
 .sizuku {
     animation: sizuku 1s linear 0s;
     border-radius: 50%;
@@ -678,6 +693,7 @@ h5 {
         left: 20%;
         transform: translate(10%, 30%) rotate(90deg);
     }
+
     60% {
         top: 50%;
         left: 50%;
@@ -715,4 +731,9 @@ h5 {
     100% {
         transform: rotateY(0deg);
     }
+}
+
+@keyframes fadeIn{
+  from{opacity: 0;}
+  to{opacity: 1;}
 }

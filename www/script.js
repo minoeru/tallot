@@ -49,4 +49,5 @@ function shuffle(){
           document.getElementById('mainCard').addEventListener("animationend",function(){
               document.getElementById('mainCard').classList.remove('mainCard_move');
             },false);
+          document.getElementById('cardimage').classList.add('fade_in');
         }
