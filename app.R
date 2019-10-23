@@ -616,7 +616,8 @@ server <- function(input, output,session) {
             ),
             tags$div(
               class = "modal-body",
-              tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px")
+              tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px"),
+              h5(class = "modal-illust",paste0("Illustration by ",df_illustrator[df$id == hoge_number]))
             )
           )
         )
@@ -659,7 +660,8 @@ server <- function(input, output,session) {
             ),
             tags$div(
               class = "modal-body",
-              tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px")
+              tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px"),
+              h5(class = "modal-illust","Illustration by okanon")
             )
           )
         )
