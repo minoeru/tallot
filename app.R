@@ -464,7 +464,7 @@ server <- function(input, output,session) {
     output$sentence <- renderUI({ h4(df_sentence3[df$id == card_num]) })
     output$illust <- renderUI({ h2(paste0("Illustration & Text:  ",df_illustrator[df$id == card_num])) })
     output$tweet <- renderUI({ 
-      hoge_tweet <<- paste0("https://twitter.com/share?url=https://minoeru.shinyapps.io/tallot/&text=",df_sentence3[df$id == card_num] ,"%20%23mis_tallot%20")
+      hoge_tweet <<- paste0("https://twitter.com/share?url=https://minoeru.shinyapps.io/tallot/&text=",df_sentence2[df$id == card_num] ,"%20%23mis_tallot%20")
       tags$div(class = "btn-container",
                tags$button(
                  id = "Tweet_button",
