@@ -244,10 +244,6 @@ h5 {
     transition: .5s;
 }
 
-.garraly-container>div:hover {
-   transform: scale(1.1);
-}
-
 
 /*modal*/
 .modal-dialog {
@@ -312,9 +308,6 @@ h5 {
     color: white;
 }
 
-.garraly-container button:hover{
-    transform: scale(1);
-}
 
 .start-btn-container button:hover {
     transform: scale(1);
