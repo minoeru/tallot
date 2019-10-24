@@ -748,6 +748,10 @@ h5 {
 }
 
 
+@keyframes fadeIn_2{
+    100%{visibility: visible;}
+}
+
 @keyframes cartain-fall {
 
     80%,

@@ -86,12 +86,12 @@ function cartain(e) {
    let shuffle_pane = document.getElementById('put_button_ui').parentNode;
    title_pane.style.opacity = 0;
    result_pane.style.opacity = 0;
-   gallery_pane.style.opacity = 0;
+   gallery_pane.style.visibility = "hidden";
    credit_pane.style.opacity = 0;
    shuffle_pane.style.opacity = 0;
    title_pane.style.animation = "fadeIn .5s ease .5s forwards";
    result_pane.style.animation = "fadeIn .5s ease .5s forwards";
-   gallery_pane.style.animation = "fadeIn .5s ease .5s forwards";
+   gallery_pane.style.animation = "fadeIn_2 .5s ease .5s forwards";
    credit_pane.style.animation = "fadeIn .5s ease .5s forwards";
    shuffle_pane.style.animation = "fadeIn .5s ease .5s forwards";
 }
