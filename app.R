@@ -217,6 +217,7 @@ server <- function(input, output,session) {
              tags$button(
                id = "start_button",
                class = "btn action-button",
+               onclick = "cartain()",
                onfocus = "this.blur();",
                "START READING"
              )
@@ -228,6 +229,7 @@ server <- function(input, output,session) {
              tags$button(
                id = "gallery_button",
                class = "btn action-button",
+               onclick = "cartain()",
                onfocus = "this.blur();",
                "GALLERY"
              )
@@ -239,6 +241,7 @@ server <- function(input, output,session) {
              tags$button(
                id = "staff_button",
                class = "btn action-button",
+               onclick = "cartain()",
                onfocus = "this.blur();",
                "CREDIT"
              )
@@ -262,6 +265,7 @@ server <- function(input, output,session) {
              tags$button(
                id = "Back_to_start_button",
                class = "btn action-button",
+               onclick = "cartain()",
                onfocus = "this.blur();",
                "ホームに戻る"
              )
@@ -273,6 +277,7 @@ server <- function(input, output,session) {
              tags$button(
                id = "Back_to_start_button2",
                class = "btn action-button",
+               onclick = "cartain()",
                onfocus = "this.blur();",
                "ホームに戻る"
              )
@@ -284,6 +289,7 @@ server <- function(input, output,session) {
              tags$button(
                id = "Back_to_start_button3",
                class = "btn action-button",
+               onclick = "cartain()",
                onfocus = "this.blur();",
                "ホームに戻る"
              )
