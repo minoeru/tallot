@@ -17,6 +17,8 @@ df_sentence2 <- as.character(df$sentence2)
 df_sentence3 <- as.character(df$sentence3)
 df_illustrator <- as.character(df$illustrator)
 
+roma_number <- c( "0","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII")
+
 #最大、最小データの準備
 maxmin <- data.frame(
   para_a = c(100, 0),
@@ -43,6 +45,7 @@ ui <- fluidPage(
                        uiOutput("slash_ui"),
                        uiOutput("gallery_button_ui"),
                        uiOutput("staff_button_ui")
+                       # uiOutput("minigame_button_ui")
               ),
               tabPanel(title = "Game",value = "panel_2",
                        tags$div(class="game-container",
@@ -296,6 +299,17 @@ server <- function(input, output,session) {
     )
   })
   
+  output$minigame_button_ui <- renderUI({
+    tags$div(class = "btn-container",
+             tags$button(
+               id = "minigame_button",
+               class = "btn action-button",
+               onfocus = "this.blur();",
+               "MINIGAME"
+             )
+    )
+  })
+  
   #変な線
   output$slash_ui <- renderUI({
     tags$div(class = "btn-container",
@@ -333,6 +347,8 @@ server <- function(input, output,session) {
   lapply(1:13, function(x) {
     output[[paste0("mob",x)]] <- renderUI({makeCards(x)})
   })
+  
+  
   
   #カードをめくるボタンが 押された時の処理
   observeEvent(input$put_button, {
@@ -499,8 +515,8 @@ server <- function(input, output,session) {
     text <- paste0("button_mini",x)
     tags$button(
       id = text,
-      class = "btn action-button",
-      tags$img(src = "mt_1000.png",height = "200px",width = "100px"),
+      class = "action-button",
+      tags$img(src = "mt_1000.png",height = "175px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
     )
   }
@@ -538,7 +554,7 @@ server <- function(input, output,session) {
     text <- paste0("button_mini",x)
     tags$button(
       id = text,
-      class = "btn action-button",
+      class = "action-button",
       tags$img(src = paste0("mt_", moto_data[x] ,".png"),height = "175px",width = "100px"),
       style="color: #000000; background-color: #000000; border-color: #000000"
     )
@@ -549,7 +565,9 @@ server <- function(input, output,session) {
     turned_count <<- turned_count + 1
     if(turned_count == 1){
       open_tmp <<- x
+      reverse_protect_mini[open_tmp] <<- 0
     } else{
+      reverse_protect_mini[open_tmp] <<- open_tmp
       if(moto_data[open_tmp] == moto_data[x]){
         p_points[play_turn_flag] <<- p_points[play_turn_flag] + 1
         output$player1_point <- renderUI({h1(p_points[1],align="center")})
@@ -624,7 +642,7 @@ server <- function(input, output,session) {
             class = "modal-content",
             tags$div(
               class = "modal-header",
-              h5(class = "modal-title",id="label1",paste0(hoge_number %% 100," ",strsplit(df_sentence2[df$id == hoge_number],"\\(")[[1]][1]))
+              h5(class = "modal-title",id="label1",paste0( roma_number[ (hoge_number %% 100) + 1 ]," ",strsplit(df_sentence2[df$id == hoge_number],"\\(")[[1]][1]))
             ),
             tags$div(
               class = "modal-body",
