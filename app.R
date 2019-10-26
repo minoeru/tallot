@@ -357,15 +357,18 @@ server <- function(input, output,session) {
     #乱数生成
     makeRan()
     #グラフにプロット
-    makeChart()
     delay(3000, output$mainCard <- renderUI({
-      if(check_tmp == 1){
+      fortune_tmp <- card_num
+      fortune_tmp2 <- card_num2
+      fortune_check_tmp <- check_tmp
+      makeChart(fortune_tmp,fortune_tmp2,fortune_check_tmp)
+      if(fortune_check_tmp == 1){
         tags$div(class = "img-container",
                  tags$div(class = "reverse_card",
                  tags$object(
                    id = "object",
                    class = "img reverse_card",
-                   tags$img(src = paste0("mtm_",card_num2,".png"),height = "175px",width = "100px")
+                   tags$img(src = paste0("mtm_",fortune_tmp2,".png"),height = "175px",width = "100px")
                  )
                  )
         )
@@ -375,7 +378,7 @@ server <- function(input, output,session) {
                  tags$object(
                    id = "object",
                    class = "img",
-                   tags$img(src = paste0("mtm_",card_num2,".png"),height = "175px",width = "100px")
+                   tags$img(src = paste0("mtm_",fortune_tmp2,".png"),height = "175px",width = "100px")
                  )
         ) 
       }
@@ -384,12 +387,11 @@ server <- function(input, output,session) {
     #bms後にページ遷移
     delay(5001, updateTabsetPanel( session, "tallot_tab",selected = "panel_3"))
     #cms後にカード消滅ボタン復活
-    delay(7000,allDelete())
+    delay(5030,allDelete())
   })
   
   #カード消滅兼ボタン復活用関数
   allDelete <- function(){
-    check_tmp <<- 0
     output$mainCard <- renderUI({})
     output$put_button_ui <- renderUI({
       tags$div(class = "btn-container",
@@ -405,6 +407,7 @@ server <- function(input, output,session) {
   
   #カード選択用乱数生成関数
   makeRan <- function(){
+    check_tmp <<- 0
     x <- floor(runif(1,0,22))
     dual <- sum( (df_id %% 100) - x == 0 )
     ran <- floor(runif(1,0,dual))
@@ -427,14 +430,14 @@ server <- function(input, output,session) {
   
   ##################  結果画面   ########################
   #結果画面のレーダーチャートとその他を作る関数
-  makeChart <- function(){
+  makeChart <- function(x,y,z){
     #描写データの準備
     dat <- data.frame(
-      para_a = df_a[df$id == card_num],
-      para_b = df_b[df$id == card_num],
-      para_c = df_c[df$id == card_num],
-      para_d = df_d[df$id == card_num],
-      para_e = df_e[df$id == card_num]
+      para_a = df_a[df$id == x],
+      para_b = df_b[df$id == x],
+      para_c = df_c[df$id == x],
+      para_d = df_d[df$id == x],
+      para_e = df_e[df$id == x]
     )
     dat <- rbind(maxmin, dat) #データの結合
     VLabel <- c("General","Love","Money","Personal","work") #ラベルの名前
@@ -455,7 +458,7 @@ server <- function(input, output,session) {
                  pangle=180,　#塗りつぶす斜線の傾き
                  pfcol=7,　#塗りつぶす色
                  cglcol="black",#軸の色
-                 title = df_sentence[df$id == card_num]
+                 title = df_sentence[df$id == x]
       )
     },bg="transparent"
     # ,width=280
@@ -463,12 +466,12 @@ server <- function(input, output,session) {
     
     #画像生成
     output$cardimage <- renderUI({
-      if(check_tmp == 1){
+      if(z == 1){
         tags$div(class = "reverse_card",
         tags$object(
           id = "object",
           class = "img reverse_img",
-          tags$img(src = paste0("mt_",card_num2,".png"),height = "350px",width = "200px")
+          tags$img(src = paste0("mt_",y,".png"),height = "350px",width = "200px")
         )
         )
       }
@@ -476,7 +479,7 @@ server <- function(input, output,session) {
         tags$object(
           id = "object",
           class = "img",
-          tags$img(src = paste0("mt_",card_num2,".png"),height = "350px",width = "200px")
+          tags$img(src = paste0("mt_",y,".png"),height = "350px",width = "200px")
         )
       }
     })
@@ -488,11 +491,11 @@ server <- function(input, output,session) {
       )
     })
     
-    output$cardname <- renderUI({ h2(df_sentence2[df$id == card_num]) })
-    output$sentence <- renderUI({ h4(df_sentence3[df$id == card_num]) })
-    output$illust <- renderUI({ h2(paste0("Illustration & Text:  ",df_illustrator[df$id == card_num])) })
+    output$cardname <- renderUI({ h2(df_sentence2[df$id == x]) })
+    output$sentence <- renderUI({ h4(df_sentence3[df$id == x]) })
+    output$illust <- renderUI({ h2(paste0("Illustration & Text:  ",df_illustrator[df$id == x])) })
     output$tweet <- renderUI({ 
-      hoge_tweet <<- paste0("https://twitter.com/share?url=https://minoeru.shinyapps.io/tarot/&text=",df_sentence2[df$id == card_num] ,"%20%23mis_tarot%20")
+      hoge_tweet <<- paste0("https://twitter.com/share?url=https://minoeru.shinyapps.io/tarot/&text=",df_sentence2[df$id == x] ,"%20%23mis_tarot%20")
       tags$div(class = "btn-container",
                tags$button(
                  id = "Tweet_button",
@@ -550,7 +553,6 @@ server <- function(input, output,session) {
   
   #カードを裏返す関数
   turnCardMini <- function(x){
-    print(moto_data)
     text <- paste0("button_mini",x)
     tags$button(
       id = text,
