@@ -356,11 +356,11 @@ server <- function(input, output,session) {
     output$put_button_ui <- renderUI({})
     #乱数生成
     makeRan()
+    fortune_tmp <- card_num
+    fortune_tmp2 <- card_num2
+    fortune_check_tmp <- check_tmp
     #グラフにプロット
     delay(3000, output$mainCard <- renderUI({
-      fortune_tmp <- card_num
-      fortune_tmp2 <- card_num2
-      fortune_check_tmp <- check_tmp
       makeChart(fortune_tmp,fortune_tmp2,fortune_check_tmp)
       if(fortune_check_tmp == 1){
         tags$div(class = "img-container",
