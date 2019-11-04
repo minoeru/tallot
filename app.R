@@ -495,7 +495,7 @@ server <- function(input, output,session) {
     output$sentence <- renderUI({ h4(df_sentence3[df$id == x]) })
     output$illust <- renderUI({ h2(paste0("Illustration & Text:  ",df_illustrator[df$id == x])) })
     output$tweet <- renderUI({ 
-      hoge_tweet <<- paste0("https://twitter.com/share?url=https://minoeru.shinyapps.io/tarot/&text=",df_sentence2[df$id == x] ,"%20%23mis_tarot%20")
+      hoge_tweet <<- paste0("https://twitter.com/share?url=https://minoeru.shinyapps.io/tarot/&text=",df_sentence2[df$id == x] ,"%20%23mis_tarot%20","raw.githubusercontent.com/minoeru/tarot/master/www/mt_",y,".png","%20")
       tags$div(class = "btn-container",
                tags$button(
                  id = "Tweet_button",
@@ -693,7 +693,7 @@ server <- function(input, output,session) {
             tags$div(
               class = "modal-body",
               tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px"),
-              h5(class = "modal-illust",paste0("Illustration by oknon"))
+              h5(class = "modal-illust",paste0("Illustration by okanon"))
             )
           )
         )
