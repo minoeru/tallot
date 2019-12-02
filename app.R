@@ -1,10 +1,10 @@
 library(shiny)
 library(fmsb)
 library(shinyjs)
-library(rsconnect)
+# library(rsconnect)
 
 #csv読み込み
-df <- read.csv("tallot.csv",fileEncoding = "UTF-8")
+df <- read.csv("tallot.csv")
 #csv各値を変数に
 df_id <- df$id
 df_a <- df$para_a
@@ -72,7 +72,7 @@ ui <- fluidPage(
                        uiOutput("slash_ui2"),
                        uiOutput("sentence",align = "center"),
                        tags$div(align="center",
-                       plotOutput("radarPlot")
+                                plotOutput("radarPlot")
                        ),
                        uiOutput("illust",align = "center"),
                        uiOutput("tweet",align = "center"),
@@ -84,6 +84,7 @@ ui <- fluidPage(
                          column(10, uiOutput("player_turn")),
                          column(1,uiOutput("player2_point"))
                        ),
+                       uiOutput("minigame_start_button_ui",align="center"),
                        fluidRow(
                          column(2,uiOutput("mini1")),
                          column(2,uiOutput("mini2")),
@@ -115,7 +116,8 @@ ui <- fluidPage(
                          column(2,uiOutput("mini22")),
                          column(2,uiOutput("mini23")),
                          column(2,uiOutput("mini24"))
-                       )
+                       ),
+                       uiOutput("Back_to_start_button_ui4",align="center")
               ),
               tabPanel(title = "Gallery",value = "panel_6",
                        uiOutput("gallery_ui", align = "center"),
@@ -299,6 +301,7 @@ server <- function(input, output,session) {
     )
   })
   
+  
   output$minigame_button_ui <- renderUI({
     tags$div(class = "btn-container",
              tags$button(
@@ -333,12 +336,11 @@ server <- function(input, output,session) {
   #ミニゲームボタンを押した際にミニゲーム画面に遷移
   observeEvent(input$minigame_button, {
     updateTabsetPanel( session, "tallot_tab",selected = "panel_5")
-    reverseAllMini()
+    makeMiniStart()
   })
   #ギャラリーボタンを押した際にミニゲーム画面に遷移
   observeEvent(input$gallery_button, {
     updateTabsetPanel( session, "tallot_tab",selected = "panel_6")
-    reverseAllMini()
   })
   
   ##################  ゲーム画面   ########################
@@ -356,20 +358,20 @@ server <- function(input, output,session) {
     output$put_button_ui <- renderUI({})
     #乱数生成
     makeRan()
-    fortune_tmp <- card_num
-    fortune_tmp2 <- card_num2
-    fortune_check_tmp <- check_tmp
     #グラフにプロット
     delay(3000, output$mainCard <- renderUI({
+      fortune_tmp <- card_num
+      fortune_tmp2 <- card_num2
+      fortune_check_tmp <- check_tmp
       makeChart(fortune_tmp,fortune_tmp2,fortune_check_tmp)
       if(fortune_check_tmp == 1){
         tags$div(class = "img-container",
                  tags$div(class = "reverse_card",
-                 tags$object(
-                   id = "object",
-                   class = "img reverse_card",
-                   tags$img(src = paste0("mtm_",fortune_tmp2,".png"),height = "175px",width = "100px")
-                 )
+                          tags$object(
+                            id = "object",
+                            class = "img reverse_card",
+                            tags$img(src = paste0("mtm_",fortune_tmp2,".png"),height = "175px",width = "100px")
+                          )
                  )
         )
       }
@@ -444,35 +446,35 @@ server <- function(input, output,session) {
     #レーダーチャート作成
     output$radarPlot <- renderPlot(
       {
-      radarchart(dat, 
-                 axistype = 0,#ラベル表示無し
-                 seg = 5,#分割数
-                 plty = 16,#線の種類(丸ぽち無し)
-                 pcol="black",#線の色
-                 plwd=2,　#ラインの太さ 
-                 vlcex = 1,# ラベルの大きさ
-                 pty=32,#データ点をプロットしない
-                 centerzero = TRUE,#ゼロ真ん中
-                 vlabels = VLabel,#ラベルの名前
-                 pdensity=0,　#塗りつぶす（斜線の）程度
-                 pangle=180,　#塗りつぶす斜線の傾き
-                 pfcol=7,　#塗りつぶす色
-                 cglcol="black",#軸の色
-                 title = df_sentence[df$id == x]
-      )
-    },bg="transparent"
-    # ,width=280
+        radarchart(dat, 
+                   axistype = 0,#ラベル表示無し
+                   seg = 5,#分割数
+                   plty = 16,#線の種類(丸ぽち無し)
+                   pcol="black",#線の色
+                   plwd=2,　#ラインの太さ 
+                   vlcex = 1,# ラベルの大きさ
+                   pty=32,#データ点をプロットしない
+                   centerzero = TRUE,#ゼロ真ん中
+                   vlabels = VLabel,#ラベルの名前
+                   pdensity=0,　#塗りつぶす（斜線の）程度
+                   pangle=180,　#塗りつぶす斜線の傾き
+                   pfcol=7,　#塗りつぶす色
+                   cglcol="black",#軸の色
+                   title = df_sentence[df$id == x]
+        )
+      },bg="transparent"
+      # ,width=280
     )
     
     #画像生成
     output$cardimage <- renderUI({
       if(z == 1){
         tags$div(class = "reverse_card",
-        tags$object(
-          id = "object",
-          class = "img reverse_img",
-          tags$img(src = paste0("mt_",y,".png"),height = "350px",width = "200px")
-        )
+                 tags$object(
+                   id = "object",
+                   class = "img reverse_img",
+                   tags$img(src = paste0("mt_",y,".png"),height = "350px",width = "200px")
+                 )
         )
       }
       else{
@@ -495,7 +497,7 @@ server <- function(input, output,session) {
     output$sentence <- renderUI({ h4(df_sentence3[df$id == x]) })
     output$illust <- renderUI({ h2(paste0("Illustration & Text:  ",df_illustrator[df$id == x])) })
     output$tweet <- renderUI({ 
-      hoge_tweet <<- paste0("https://twitter.com/share?url=https://minoeru.shinyapps.io/tarot/&text=",df_sentence2[df$id == x] ,"%20%23mis_tarot%20","raw.githubusercontent.com/minoeru/tarot/master/www/mt_",y,".png","%20")
+      hoge_tweet <<- paste0("https://twitter.com/share?url=https://minoeru.shinyapps.io/tarot/&text=",df_sentence2[df$id == x] ,"%20%23mis_tarot%20")
       tags$div(class = "btn-container",
                tags$button(
                  id = "Tweet_button",
@@ -513,14 +515,44 @@ server <- function(input, output,session) {
   
   ##################  ミニゲーム画面   ########################
   
+  #カードを消す関数
+  deleteCard <- function(x){output[[paste0("mini",x)]] <- renderUI({})}
+  
+  #全てのカードを消す関数
+  deleteAllMini <- function(x) {
+    lapply(1:24, function(x) deleteCard(x))
+  }
+  
+  #スタート画面を生成する関数
+  makeMiniStart <- function(){
+    output$player1_point <- renderUI({})
+    output$player2_point <- renderUI({})
+    output$player_turn<- renderUI({})
+    deleteAllMini()
+    output$Back_to_start_button_ui4 <- renderUI({})
+    output$minigame_start_button_ui  <- renderUI({
+      tags$div(class = "btn-container",
+               tags$button(
+                 id = "minigame_start_button",
+                 class = "btn action-button",
+                 onfocus = "this.blur();",
+                 "MINIGAME START"
+               )
+      )
+    })
+  }
+  
+  observeEvent(input$minigame_start_button, {
+    reverseAllMini()
+  })
+  
   #カードを裏面で生成する関数
   makeUiMini <- function(x){
     text <- paste0("button_mini",x)
     tags$button(
       id = text,
       class = "action-button",
-      tags$img(src = "mt_1000.png",height = "175px",width = "100px"),
-      style="color: #000000; background-color: #000000; border-color: #000000"
+      tags$img(src = "mt_1000.png",height = "175px",width = "100px")
     )
   }
   
@@ -540,6 +572,11 @@ server <- function(input, output,session) {
     moto_data <<- unique( floor( runif(10000,0,22) ) )#ランダムに0~21生成
     moto_data <<- append(moto_data[1:12],moto_data[1:12])#12個ずつ一組作る
     moto_data <<- moto_data[order(rnorm(length(moto_data)))]#ランダムに並べ替える
+    print("-----------------------")
+    print(moto_data[1:6])
+    print(moto_data[7:12])
+    print(moto_data[13:18])
+    print(moto_data[19:24])
   }
   
   #カードを裏面に戻す関数
@@ -549,6 +586,18 @@ server <- function(input, output,session) {
   reverseAllMini <- function(x) {
     lapply(1:24, function(x) returnCard(x))
     resetPoint()
+    output$minigame_start_button_ui  <- renderUI({})
+    output$Back_to_start_button_ui4 <- renderUI({
+      tags$div(class = "btn-container",
+               tags$button(
+                 id = "Back_to_start_button3",
+                 class = "btn action-button",
+                 onclick = "cartain()",
+                 onfocus = "this.blur();",
+                 "ホームに戻る"
+               )
+      )
+    })
   }
   
   #カードを裏返す関数
@@ -557,8 +606,7 @@ server <- function(input, output,session) {
     tags$button(
       id = text,
       class = "action-button",
-      tags$img(src = paste0("mt_", moto_data[x] ,".png"),height = "175px",width = "100px"),
-      style="color: #000000; background-color: #000000; border-color: #000000"
+      tags$img(src = paste0("mt_", moto_data[x] ,".png"),height = "175px",width = "100px")
     )
   }
   
@@ -623,37 +671,37 @@ server <- function(input, output,session) {
   makeGarraly <- function(x){
     hoge_number <- x
     tags$div(class = "modal-hover",
-      tags$button(
-        type = "button",
-        class="btn btn-primary",
-        "data-toggle" = "modal",
-        "data-target" = paste0("#modal",hoge_number),
-        tags$img(src = paste0("mtm_",hoge_number,".png"),height = "175px",width = "100px")
-      ),
-      tags$div(
-        class = "modal fade",
-        id = paste0("modal",hoge_number),
-        tabindex = "-1",
-        role = "dialog",
-        "aria-labelledby" = "label1",
-        "aria-hidden" = "true",
-        tags$div(
-          class = "modal-dialog modal-dialog-centered",
-          role = "document",
-          tags$div(
-            class = "modal-content",
-            tags$div(
-              class = "modal-header",
-              h5(class = "modal-title",id="label1",paste0( roma_number[ (hoge_number %% 100) + 1 ]," ",strsplit(df_sentence2[df$id == hoge_number],"\\(")[[1]][1]))
-            ),
-            tags$div(
-              class = "modal-body",
-              tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px"),
-              h5(class = "modal-illust",paste0("Illustration by ",df_illustrator[df$id == hoge_number]))
-            )
-          )
-        )
-      )
+             tags$button(
+               type = "button",
+               class="btn btn-primary",
+               "data-toggle" = "modal",
+               "data-target" = paste0("#modal",hoge_number),
+               tags$img(src = paste0("mtm_",hoge_number,".png"),height = "175px",width = "100px")
+             ),
+             tags$div(
+               class = "modal fade",
+               id = paste0("modal",hoge_number),
+               tabindex = "-1",
+               role = "dialog",
+               "aria-labelledby" = "label1",
+               "aria-hidden" = "true",
+               tags$div(
+                 class = "modal-dialog modal-dialog-centered",
+                 role = "document",
+                 tags$div(
+                   class = "modal-content",
+                   tags$div(
+                     class = "modal-header",
+                     h5(class = "modal-title",id="label1",paste0( roma_number[ (hoge_number %% 100) + 1 ]," ",strsplit(df_sentence2[df$id == hoge_number],"\\(")[[1]][1]))
+                   ),
+                   tags$div(
+                     class = "modal-body",
+                     tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px"),
+                     h5(class = "modal-illust",paste0("Illustration by ",df_illustrator[df$id == hoge_number]))
+                   )
+                 )
+               )
+             )
     )
   }
   
@@ -693,7 +741,7 @@ server <- function(input, output,session) {
             tags$div(
               class = "modal-body",
               tags$img(src = paste0("mt_",hoge_number,".png"),height = "175px",width = "100px"),
-              h5(class = "modal-illust",paste0("Illustration by okanon"))
+              h5(class = "modal-illust",paste0("Illustration by oknon"))
             )
           )
         )
